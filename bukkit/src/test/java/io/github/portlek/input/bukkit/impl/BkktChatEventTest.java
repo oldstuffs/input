@@ -24,7 +24,6 @@
 
 package io.github.portlek.input.bukkit.impl;
 
-import io.github.portlek.input.bukkit.impl.BkktChatEvent;
 import java.util.HashSet;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.AsyncPlayerChatEvent;

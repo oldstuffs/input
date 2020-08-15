@@ -46,7 +46,7 @@ public final class BukkitChatInputTest {
 
     private static final Player PLAYER = Mockito.mock(Player.class);
 
-    private static final BukkitChatInput<Integer> CHAT_INPUT = BukkitChatInputBuilder.integer(BukkitChatInputTest.PLUGIN, BukkitChatInputTest.PLAYER)
+    private static final BukkitChatInput<Integer> CHAT_INPUT = BukkitChatInputBuilder.<Integer>builder(BukkitChatInputTest.PLUGIN, BukkitChatInputTest.PLAYER)
         .build();
 
     private final BukkitTask bukkitTask = Mockito.mock(BukkitTask.class);

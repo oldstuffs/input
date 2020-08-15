@@ -41,14 +41,8 @@ public final class BukkitChatInputBuilderTest {
     }
 
     @Test
-    void integer() {
-        final BukkitChatInputBuilder<Integer> builder = BukkitChatInputBuilder.integer(this.plugin, this.player);
-    }
-
-    @Test
     void build() {
         final BukkitChatInputBuilder<Integer> builder = new BukkitChatInputBuilder<>(this.plugin, this.player);
-        final BukkitChatInput<Integer> build = builder.build();
     }
 
 }

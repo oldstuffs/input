@@ -51,7 +51,7 @@ public final class BkktPluginTest {
 
     private final BkktPlugin bkktPlugin = new BkktPlugin(BkktPluginTest.plugin);
 
-    private final BukkitChatInput<Integer> chatInput = BukkitChatInputBuilder.integer(BkktPluginTest.plugin, this.player)
+    private final BukkitChatInput<Integer> chatInput = BukkitChatInputBuilder.<Integer>builder(BkktPluginTest.plugin, this.player)
         .build();
 
     private String isWorking = "not-working";
