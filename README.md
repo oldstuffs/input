@@ -43,7 +43,7 @@ public final class TestCommand implements CommandExecutor {
     // This comand will ask for a number n and will send to the player n! so we will
     // work with integers
     // BukkitChatInputBuilder.integer(..., ...).otherStuffs();
-    final BukkitChatInput<Integer> input = BukkitChatInputBuilder.builder(this.plugin, player)
+    final BukkitChatInput<Integer> build = BukkitChatInputBuilder.<Integer>builder(this.plugin, player)
       .isValidInput((player, input) -> { // Set the validation
         try {
           return Integer.parseInt(input) > 0; // We only accept numbers greater than 0
@@ -68,11 +68,11 @@ public final class TestCommand implements CommandExecutor {
         // if the input time expires.
         player.sendMessage("Input expired!");
       }).expire(20L * 30L)
-        .repeat(true)
-        .invalidInputMessage("That is not a number/Can calculate the factorial of it")// Message if the input is invalid
-        .sendValueMessage("Send a number to calculate") // Asking for the number
-        .toCancel("cancel")
-        .build();
+      .repeat(true)
+      .invalidInputMessage("That is not a number/Can calculate the factorial of it")// Message if the input is invalid
+      .sendValueMessage("Send a number to calculate") // Asking for the number
+      .toCancel("cancel")
+      .build();
     input.start();
   }
 
