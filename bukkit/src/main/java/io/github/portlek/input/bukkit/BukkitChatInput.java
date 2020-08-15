@@ -58,23 +58,6 @@ public final class BukkitChatInput<T> extends CoreChatInput<T, Player, BkktSende
             isValidInput, setValue, onFinish, onCancel, cancel, onInvalidInput, repeat, onExpire, expire);
     }
 
-    public BukkitChatInput(@NotNull final Plugin plugin, @NotNull final Player sender, @Nullable final T startOn,
-                           @Nullable final String invalidInputMessage, @Nullable final String sendValueMessage,
-                           @NotNull final BiFunction<Player, String, Boolean> isValidInput,
-                           @NotNull final BiFunction<Player, String, T> setValue,
-                           @NotNull final BiConsumer<Player, T> onFinish, @NotNull final Consumer<Player> onCancel,
-                           @NotNull final String cancel,
-                           @NotNull final BiFunction<Player, String, Boolean> onInvalidInput, final boolean repeat,
-                           @NotNull final Consumer<Player> onExpire, final long expire) {
-        this(new BkktPlugin(plugin), new BkktSender(sender), startOn, invalidInputMessage, sendValueMessage,
-            (bukkitSender, s) -> isValidInput.apply(bukkitSender.get(), s),
-            (bukkitSender, s) -> setValue.apply(bukkitSender.get(), s),
-            (bukkitSender, t) -> onFinish.accept(bukkitSender.get(), t),
-            bukkitSender -> onCancel.accept(bukkitSender.get()), cancel,
-            (bukkitSender, s) -> onInvalidInput.apply(bukkitSender.get(), s), repeat,
-            bukkitSender -> onExpire.accept(bukkitSender.get()), expire);
-    }
-
     @NotNull
     @Override
     public Task<BukkitTask> createTask(@NotNull final BukkitTask task) {
