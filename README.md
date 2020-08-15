@@ -2,7 +2,7 @@
 [![rultor](https://www.rultor.com/b/yegor256/rultor)](https://www.rultor.com/p/portlek/input)
 
 [![Build Status](https://travis-ci.com/portlek/input.svg?branch=master)](https://travis-ci.com/portlek/input)
-![Maven Central](https://img.shields.io/maven-central/v/io.github.portlek/input?label=version)
+![Maven Central](https://img.shields.io/maven-central/v/io.github.portlek/input-common?label=version)
 ## How to Use
 ```gradle
 // For Bukkit projects.
