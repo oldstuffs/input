@@ -26,11 +26,11 @@ package io.github.portlek.input;
 
 import io.github.portlek.input.event.ChatEvent;
 import io.github.portlek.input.event.QuitEvent;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
+import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -41,106 +41,52 @@ import org.jetbrains.annotations.Nullable;
  * @author Nemo_64
  * @version 1.1
  */
+@RequiredArgsConstructor
 public abstract class CoreChatInput<T, P, S extends Sender<P>, X, A extends ChatEvent<P>, B extends QuitEvent<P>, L>
     implements ChatInput<T, X, L> {
 
     @NotNull
-    protected final BiFunction<S, String, Boolean> onInvalidInput;
+    private final ChatInputPlugin<X, L> plugin;
 
     @NotNull
-    protected final BiFunction<S, String, Boolean> isValidInput;
-
-    @NotNull
-    protected final BiFunction<S, String, T> setValue;
-
-    @NotNull
-    protected final BiConsumer<S, T> onFinish;
-
-    @NotNull
-    protected final Consumer<S> onCancel;
-
-    @NotNull
-    protected final Consumer<S> onExpire;
-
-    @NotNull
-    protected final S sender;
+    private final S sender;
 
     @Nullable
-    protected final String invalidInputMessage;
+    private final String invalidInputMessage;
 
     @Nullable
-    protected final String sendValueMessage;
+    private final String sendValueMessage;
 
     @NotNull
-    protected final String cancel;
+    private final BiFunction<S, String, Boolean> isValidInput;
 
     @NotNull
-    protected final ChatInputPlugin<X, L> plugin;
+    private final BiFunction<S, String, T> setValue;
 
-    protected final boolean repeat;
+    @NotNull
+    private final BiConsumer<S, T> onFinish;
 
-    protected final long expire;
+    @NotNull
+    private final Consumer<S> onCancel;
+
+    @NotNull
+    private final Consumer<S> onExpire;
+
+    @NotNull
+    private final String cancel;
+
+    @NotNull
+    private final BiFunction<S, String, Boolean> onInvalidInput;
+
+    private final boolean repeat;
+
+    private final long expire;
 
     @Nullable
-    protected Task<X> expireTask;
+    private T value;
 
     @Nullable
-    protected T value;
-
-    /**
-     * @param plugin The main class of the plugin
-     * @param sender The sender that is going to input the value
-     * @param startOn The start value
-     * @param invalidInputMessage Message that will be sent to the sender if the input is invalid
-     * @param sendValueMessage Message that will be sent to the sender to ask for the input
-     * @param isValidInput Checks if the sender input is valid
-     * @param setValue Used to set the value.<br>
-     * Since we can't know to what transform the string that the sender
-     * sends, it must be converted to the value latter
-     * @param onFinish Called when the sender inputs a valid string
-     * @param onCancel Called when the sender cancels
-     * @param onExpire Called when the sender didn't complete the situation
-     * @param cancel The string that the sender has to send to cancel the process
-     * @param onInvalidInput Called when the input is invalid
-     * @param expire if sender don't complete the situation until the expire time {@link #onExpire} will run.
-     * @param repeat will use when the sender complete the situation and the situation repeats.
-     */
-    protected CoreChatInput(@NotNull final ChatInputPlugin<X, L> plugin, @NotNull final S sender, @Nullable final T startOn,
-                            @Nullable final String invalidInputMessage, @Nullable final String sendValueMessage,
-                            @NotNull final BiFunction<S, String, Boolean> isValidInput,
-                            @NotNull final BiFunction<S, String, T> setValue,
-                            @NotNull final BiConsumer<S, T> onFinish, @NotNull final Consumer<S> onCancel,
-                            @NotNull final String cancel,
-                            @NotNull final BiFunction<S, String, Boolean> onInvalidInput, final boolean repeat,
-                            @NotNull final Consumer<S> onExpire, final long expire) {
-        Objects.requireNonNull(plugin, "plugin can't be null");
-        Objects.requireNonNull(sender, "sender can't be null");
-        Objects.requireNonNull(isValidInput, "isValidInput can't be null");
-        Objects.requireNonNull(setValue, "setValue can't be null");
-        Objects.requireNonNull(onFinish, "onFinish can't be null");
-        Objects.requireNonNull(onCancel, "onCancel can't be null");
-        Objects.requireNonNull(onExpire, "onExpire can't be null");
-        Objects.requireNonNull(onInvalidInput, "onInvalidInput can't be null");
-        Objects.requireNonNull(cancel, "cancel can't be null");
-        this.plugin = plugin;
-        this.sender = sender;
-        this.invalidInputMessage = invalidInputMessage;
-        this.sendValueMessage = sendValueMessage;
-        this.isValidInput = isValidInput;
-        this.setValue = setValue;
-        this.onFinish = onFinish;
-        this.onCancel = onCancel;
-        this.onExpire = onExpire;
-        if (cancel.trim().isEmpty()) {
-            this.cancel = "cancel";
-        } else {
-            this.cancel = cancel;
-        }
-        this.onInvalidInput = onInvalidInput;
-        this.value = startOn;
-        this.repeat = repeat;
-        this.expire = expire;
-    }
+    private Task<X> expireTask;
 
     /**
      * Gets the value that the player has inputted or the default value
@@ -158,7 +104,7 @@ public abstract class CoreChatInput<T, P, S extends Sender<P>, X, A extends Chat
      */
     @Override
     public final void start() {
-        this.plugin.registerEvent(this.get());
+        this.plugin.registerEvent(this.self());
         if (this.expire != -1L) {
             this.expireTask = this.createTask(
                 this.plugin.createRunTaskLater(() ->

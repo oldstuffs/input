@@ -25,25 +25,24 @@
 package io.github.portlek.input.bukkit.impl;
 
 import io.github.portlek.input.ChatInputPlugin;
+import lombok.RequiredArgsConstructor;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitTask;
 import org.jetbrains.annotations.NotNull;
 
+@RequiredArgsConstructor
 public final class BkktPlugin implements ChatInputPlugin<BukkitTask, Listener> {
 
     @NotNull
     private final Plugin plugin;
-
-    public BkktPlugin(@NotNull final Plugin plugin) {
-        this.plugin = plugin;
-    }
 
     @Override
     public void registerEvent(@NotNull final Listener event) {
         this.plugin.getServer().getPluginManager().registerEvents(event, this.plugin);
     }
 
+    @NotNull
     @Override
     public BukkitTask createRunTaskLater(@NotNull final Runnable runnable, final long time) {
         return this.plugin.getServer().getScheduler().runTaskLater(this.plugin, runnable, time);

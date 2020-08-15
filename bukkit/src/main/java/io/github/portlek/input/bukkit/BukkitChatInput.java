@@ -27,7 +27,10 @@ package io.github.portlek.input.bukkit;
 import io.github.portlek.input.ChatInputPlugin;
 import io.github.portlek.input.CoreChatInput;
 import io.github.portlek.input.Task;
-import io.github.portlek.input.bukkit.impl.*;
+import io.github.portlek.input.bukkit.impl.BkktChatEvent;
+import io.github.portlek.input.bukkit.impl.BkktQuitEvent;
+import io.github.portlek.input.bukkit.impl.BkktSender;
+import io.github.portlek.input.bukkit.impl.BkktTask;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
@@ -37,7 +40,6 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitTask;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -46,16 +48,17 @@ public final class BukkitChatInput<T> extends CoreChatInput<T, Player, BkktSende
     BkktQuitEvent, Listener> implements Listener {
 
     public BukkitChatInput(@NotNull final ChatInputPlugin<BukkitTask, Listener> plugin,
-                           @NotNull final BkktSender sender, @Nullable final T startOn,
-                           @Nullable final String invalidInputMessage, @Nullable final String sendValueMessage,
+                           @NotNull final BkktSender sender, @Nullable final String invalidInputMessage,
+                           @Nullable final String sendValueMessage,
                            @NotNull final BiFunction<BkktSender, String, Boolean> isValidInput,
                            @NotNull final BiFunction<BkktSender, String, T> setValue,
                            @NotNull final BiConsumer<BkktSender, T> onFinish,
-                           @NotNull final Consumer<BkktSender> onCancel, @NotNull final String cancel,
-                           @NotNull final BiFunction<BkktSender, String, Boolean> onInvalidInput,
-                           final boolean repeat, @NotNull final Consumer<BkktSender> onExpire, final long expire) {
-        super(plugin, sender, startOn, invalidInputMessage, sendValueMessage,
-            isValidInput, setValue, onFinish, onCancel, cancel, onInvalidInput, repeat, onExpire, expire);
+                           @NotNull final Consumer<BkktSender> onCancel, @NotNull final Consumer<BkktSender> onExpire,
+                           @NotNull final String cancel,
+                           @NotNull final BiFunction<BkktSender, String, Boolean> onInvalidInput, final boolean repeat,
+                           final long expire) {
+        super(plugin, sender, invalidInputMessage, sendValueMessage, isValidInput, setValue, onFinish, onCancel,
+            onExpire, cancel, onInvalidInput, repeat, expire);
     }
 
     @NotNull
@@ -65,18 +68,18 @@ public final class BukkitChatInput<T> extends CoreChatInput<T, Player, BkktSende
     }
 
     @EventHandler
-    public void whenQuit(final PlayerQuitEvent event) {
+    public void whenQuit(@NotNull final PlayerQuitEvent event) {
         this.onQuit(new BkktQuitEvent(event));
     }
 
     @EventHandler
-    public void whenChat(final AsyncPlayerChatEvent event) {
+    public void whenChat(@NotNull final AsyncPlayerChatEvent event) {
         this.onChat(new BkktChatEvent(event));
     }
 
     @NotNull
     @Override
-    public BukkitChatInput<T> get() {
+    public BukkitChatInput<T> self() {
         return this;
     }
 

@@ -37,11 +37,11 @@ public final class BukkitChatInputBuilderTest {
 
     @Test
     void builder() {
-        final BukkitChatInput<Integer> build = BukkitChatInputBuilder.<Integer>builder(this.plugin, player)
+        final BukkitChatInput<Integer> build = BukkitChatInputBuilder.<Integer>builder(this.plugin, this.player)
             .isValidInput((player, input) -> { // Set the validation
                 try {
                     return Integer.parseInt(input) > 0; // We only accept numbers greater than 0
-                } catch (Exception e) {
+                } catch (final Exception e) {
                     return false; // The input was not an integer
                 }
             }).setValue((player, input) -> {

@@ -85,7 +85,7 @@ public abstract class ChatInputBuilder<T, P, S extends Sender<P>, X, L,
     @NotNull
     public Slf expire(final long expire) {
         this.expire = expire;
-        return self();
+        return this.self();
     }
 
     /**
@@ -97,7 +97,7 @@ public abstract class ChatInputBuilder<T, P, S extends Sender<P>, X, L,
     @NotNull
     public Slf invalidInputMessage(@Nullable final String message) {
         this.invalidInputMessage = message;
-        return self();
+        return this.self();
     }
 
     /**
@@ -109,7 +109,7 @@ public abstract class ChatInputBuilder<T, P, S extends Sender<P>, X, L,
     @NotNull
     public Slf sendValueMessage(@Nullable final String message) {
         this.sendValueMessage = message;
-        return self();
+        return this.self();
     }
 
     /**
@@ -122,7 +122,7 @@ public abstract class ChatInputBuilder<T, P, S extends Sender<P>, X, L,
     @NotNull
     public Slf toCancel(@NotNull final String cancel) {
         this.cancel = cancel;
-        return self();
+        return this.self();
     }
 
     /**
@@ -134,7 +134,7 @@ public abstract class ChatInputBuilder<T, P, S extends Sender<P>, X, L,
     @NotNull
     public Slf defaultValue(@Nullable final T def) {
         this.value = def;
-        return self();
+        return this.self();
     }
 
     /**
@@ -151,13 +151,13 @@ public abstract class ChatInputBuilder<T, P, S extends Sender<P>, X, L,
     @NotNull
     public Slf repeat(final boolean repeat) {
         this.repeat = repeat;
-        return self();
+        return this.self();
     }
 
     @NotNull
     public Slf onExpire(@NotNull final Consumer<S> onExpire) {
         this.onExpire = onExpire;
-        return self();
+        return this.self();
     }
 
     /**
@@ -172,7 +172,7 @@ public abstract class ChatInputBuilder<T, P, S extends Sender<P>, X, L,
     @NotNull
     public Slf onInvalidInput(@NotNull final BiFunction<S, String, Boolean> onInvalidInput) {
         this.onInvalidInput = onInvalidInput;
-        return self();
+        return this.self();
     }
 
     /**
@@ -195,7 +195,7 @@ public abstract class ChatInputBuilder<T, P, S extends Sender<P>, X, L,
     @NotNull
     public Slf isValidInput(@NotNull final BiFunction<S, String, Boolean> isValidInput) {
         this.isValidInput = isValidInput;
-        return self();
+        return this.self();
     }
 
     /**
@@ -209,7 +209,7 @@ public abstract class ChatInputBuilder<T, P, S extends Sender<P>, X, L,
     @NotNull
     public Slf onFinish(@NotNull final BiConsumer<S, T> onFinish) {
         this.onFinish = onFinish;
-        return self();
+        return this.self();
     }
 
     /**
@@ -224,7 +224,7 @@ public abstract class ChatInputBuilder<T, P, S extends Sender<P>, X, L,
     @NotNull
     public Slf onCancel(@NotNull final Consumer<S> onCancel) {
         this.onCancel = onCancel;
-        return self();
+        return this.self();
     }
 
     /**
@@ -240,7 +240,7 @@ public abstract class ChatInputBuilder<T, P, S extends Sender<P>, X, L,
     @NotNull
     public Slf setValue(@NotNull final BiFunction<S, String, T> setValue) {
         this.setValue = setValue;
-        return self();
+        return this.self();
     }
 
     @NotNull
