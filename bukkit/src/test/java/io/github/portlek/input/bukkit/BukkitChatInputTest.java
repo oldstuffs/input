@@ -78,7 +78,7 @@ public final class BukkitChatInputTest {
 
     @Test
     void get() {
-        Assertions.assertEquals(BukkitChatInputTest.CHAT_INPUT, BukkitChatInputTest.CHAT_INPUT.self(), "The get method in ChatInput not giving the correct object!");
+        Assertions.assertEquals(BukkitChatInputTest.CHAT_INPUT, BukkitChatInputTest.CHAT_INPUT.get(), "The get method in ChatInput not giving the correct object!");
     }
 
     @Test

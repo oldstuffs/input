@@ -37,12 +37,45 @@ public final class BukkitChatInputBuilderTest {
 
     @Test
     void builder() {
-        final BukkitChatInputBuilder<Integer> builder = BukkitChatInputBuilder.builder(this.plugin, this.player);
+        final BukkitChatInput<Integer> build = BukkitChatInputBuilder.<Integer>builder(this.plugin, player)
+            .isValidInput((player, input) -> { // Set the validation
+                try {
+                    return Integer.parseInt(input) > 0; // We only accept numbers greater than 0
+                } catch (Exception e) {
+                    return false; // The input was not an integer
+                }
+            }).setValue((player, input) -> {
+                // We convert the input string to a number
+                return Integer.parseInt(input);
+            }).onInvalidInput((player, input) -> {
+                // Send a message if the input is invalid
+                player.sendMessage("That is not a number");
+                // Send the messages stablished with invalidInputMessage(String) and sendValueMessage(String)
+                return true;
+            }).onFinish((player, value) -> {
+                // when the player inputs a string that is a number greater that 0 we send a message
+                player.sendMessage(value + "! is " + this.factorialOf(value));
+            }).onCancel(player -> {
+                // if the player cancels, we send a message
+                player.sendMessage("Canceled the factorial-calculation");
+            }).onExpire(player -> {
+                // if the input time expires.
+                player.sendMessage("Input expired!");
+            }).expire(20L * 30L)
+            .repeat(true)
+            .invalidInputMessage("That is not a number/Can calculate the factorial of it")// Message if the input is invalid
+            .sendValueMessage("Send a number to calculate") // Asking for the number
+            .toCancel("cancel")
+            .build();
     }
 
     @Test
     void build() {
         final BukkitChatInputBuilder<Integer> builder = new BukkitChatInputBuilder<>(this.plugin, this.player);
+    }
+
+    private long factorialOf(final int num) {
+        return num <= 1 ? 1 : this.factorialOf(num - 1) * num;
     }
 
 }

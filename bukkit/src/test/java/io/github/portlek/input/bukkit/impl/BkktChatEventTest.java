@@ -53,7 +53,7 @@ public final class BkktChatEventTest {
 
     @Test
     void testSender() {
-        Assertions.assertEquals(this.player, this.bkktChatEvent.sender().self(), "The chat event's sender is not the #player!");
+        Assertions.assertEquals(this.player, this.bkktChatEvent.sender().get(), "The chat event's sender is not the #player!");
     }
 
 }

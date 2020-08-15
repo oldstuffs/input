@@ -27,7 +27,7 @@ package io.github.portlek.input;
 import java.util.Optional;
 import org.jetbrains.annotations.NotNull;
 
-public interface ChatInput<T, X, L> extends Self<L> {
+public interface ChatInput<T, X, L> extends Get<L> {
 
     @NotNull
     Optional<T> getValue();

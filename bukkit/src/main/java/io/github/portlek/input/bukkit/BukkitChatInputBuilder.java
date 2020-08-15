@@ -40,7 +40,8 @@ import org.jetbrains.annotations.NotNull;
  * @param <T> The {@link CoreChatInput} type
  * @author Nemo_64
  */
-public final class BukkitChatInputBuilder<T> extends ChatInputBuilder<T, Player, BkktSender, BukkitTask, Listener> {
+public final class BukkitChatInputBuilder<T> extends ChatInputBuilder<T, Player, BkktSender, BukkitTask, Listener,
+    BukkitChatInputBuilder<T>> {
 
     /**
      * @param plugin The main class of the plugin
@@ -66,6 +67,12 @@ public final class BukkitChatInputBuilder<T> extends ChatInputBuilder<T, Player,
         return new BukkitChatInput<>(this.plugin, this.sender, this.value, this.invalidInputMessage,
             this.sendValueMessage, this.isValidInput, this.setValue, this.onFinish, this.onCancel, this.cancel,
             this.onInvalidInput, this.repeat, this.onExpire, this.expire);
+    }
+
+    @NotNull
+    @Override
+    public BukkitChatInputBuilder<T> self() {
+        return this;
     }
 
 }

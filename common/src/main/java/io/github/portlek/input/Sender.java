@@ -27,7 +27,7 @@ package io.github.portlek.input;
 import java.util.UUID;
 import org.jetbrains.annotations.NotNull;
 
-public interface Sender<T> extends Self<T> {
+public interface Sender<T> extends Get<T> {
 
     @NotNull
     UUID getUniqueId();

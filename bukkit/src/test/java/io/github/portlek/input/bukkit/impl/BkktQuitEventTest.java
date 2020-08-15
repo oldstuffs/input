@@ -40,7 +40,7 @@ public final class BkktQuitEventTest {
 
     @Test
     void sender() {
-        Assertions.assertEquals(this.player, this.bkktQuitEvent.sender().self(), "The sender is not same with #player!");
+        Assertions.assertEquals(this.player, this.bkktQuitEvent.sender().get(), "The sender is not same with #player!");
     }
 
 }

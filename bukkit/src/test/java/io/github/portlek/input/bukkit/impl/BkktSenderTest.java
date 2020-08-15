@@ -66,7 +66,7 @@ public final class BkktSenderTest {
 
     @Test
     void get() {
-        Assertions.assertEquals(player, this.sender.self(), "The sender's get method is not same with #player!");
+        Assertions.assertEquals(player, this.sender.get(), "The sender's get method is not same with #player!");
     }
 
 }

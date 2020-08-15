@@ -158,7 +158,7 @@ public abstract class CoreChatInput<T, P, S extends Sender<P>, X, A extends Chat
      */
     @Override
     public final void start() {
-        this.plugin.registerEvent(this.self());
+        this.plugin.registerEvent(this.get());
         if (this.expire != -1L) {
             this.expireTask = this.createTask(
                 this.plugin.createRunTaskLater(() ->

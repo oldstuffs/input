@@ -22,37 +22,13 @@
  * SOFTWARE.
  */
 
-package io.github.portlek.input.bukkit.impl;
+package io.github.portlek.input;
 
-import io.github.portlek.input.Sender;
-import java.util.UUID;
-import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-public final class BkktSender implements Sender<Player> {
+public interface Get<T> {
 
     @NotNull
-    private final Player player;
-
-    public BkktSender(@NotNull final Player player) {
-        this.player = player;
-    }
-
-    @NotNull
-    @Override
-    public UUID getUniqueId() {
-        return this.player.getUniqueId();
-    }
-
-    @Override
-    public void sendMessage(@NotNull final String message) {
-        this.player.sendMessage(message);
-    }
-
-    @NotNull
-    @Override
-    public Player get() {
-        return this.player;
-    }
+    T get();
 
 }

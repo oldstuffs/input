@@ -67,12 +67,12 @@ public final class BukkitChatInput<T> extends CoreChatInput<T, Player, BkktSende
                            @NotNull final BiFunction<Player, String, Boolean> onInvalidInput, final boolean repeat,
                            @NotNull final Consumer<Player> onExpire, final long expire) {
         this(new BkktPlugin(plugin), new BkktSender(sender), startOn, invalidInputMessage, sendValueMessage,
-            (bukkitSender, s) -> isValidInput.apply(bukkitSender.self(), s),
-            (bukkitSender, s) -> setValue.apply(bukkitSender.self(), s),
-            (bukkitSender, t) -> onFinish.accept(bukkitSender.self(), t),
-            bukkitSender -> onCancel.accept(bukkitSender.self()), cancel,
-            (bukkitSender, s) -> onInvalidInput.apply(bukkitSender.self(), s), repeat,
-            bukkitSender -> onExpire.accept(bukkitSender.self()), expire);
+            (bukkitSender, s) -> isValidInput.apply(bukkitSender.get(), s),
+            (bukkitSender, s) -> setValue.apply(bukkitSender.get(), s),
+            (bukkitSender, t) -> onFinish.accept(bukkitSender.get(), t),
+            bukkitSender -> onCancel.accept(bukkitSender.get()), cancel,
+            (bukkitSender, s) -> onInvalidInput.apply(bukkitSender.get(), s), repeat,
+            bukkitSender -> onExpire.accept(bukkitSender.get()), expire);
     }
 
     @NotNull
@@ -93,7 +93,7 @@ public final class BukkitChatInput<T> extends CoreChatInput<T, Player, BkktSende
 
     @NotNull
     @Override
-    public BukkitChatInput<T> self() {
+    public BukkitChatInput<T> get() {
         return this;
     }
 
