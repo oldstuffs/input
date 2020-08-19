@@ -30,7 +30,7 @@
     <parent>
         <artifactId>input-parent</artifactId>
         <groupId>io.github.portlek</groupId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.3</version>
     </parent>
     <artifactId>input-common</artifactId>
     <name>input-common</name>
