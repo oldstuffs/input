@@ -30,7 +30,7 @@
     <parent>
         <artifactId>input-parent</artifactId>
         <groupId>io.github.portlek</groupId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.4</version>
     </parent>
     <artifactId>input-bukkit</artifactId>
     <name>input-bukkit</name>
@@ -39,7 +39,7 @@
         <dependency>
             <groupId>io.github.portlek</groupId>
             <artifactId>input-common</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.4</version>
         </dependency>
         <dependency>
             <groupId>org.spigotmc</groupId>
