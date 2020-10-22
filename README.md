@@ -49,7 +49,7 @@ final class TestCommand implements CommandExecutor {
       .onInvalidInput((player, input) -> {
         // Send a message if the input is invalid
         player.sendMessage("That is not a number");
-        // Send the messages stablished with invalidInputMessage(String) and sendValueMessage(String)
+        // Send the messages established with invalidInputMessage(String) and sendValueMessage(String)
         return true;
       })
       .onFinish((player, value) -> {
