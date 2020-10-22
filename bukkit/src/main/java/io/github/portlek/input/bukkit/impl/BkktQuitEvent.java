@@ -30,19 +30,29 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * an implementation for {@link QuitEvent}.
+ */
 public final class BkktQuitEvent implements QuitEvent<Player> {
 
-    @NotNull
-    private final PlayerQuitEvent event;
+  /**
+   * the sender.
+   */
+  @NotNull
+  private final Sender<Player> sender;
 
-    public BkktQuitEvent(@NotNull final PlayerQuitEvent event) {
-        this.event = event;
-    }
+  /**
+   * ctor.
+   *
+   * @param event the event.
+   */
+  public BkktQuitEvent(@NotNull final PlayerQuitEvent event) {
+    this.sender = new BkktSender(event.getPlayer());
+  }
 
-    @NotNull
-    @Override
-    public Sender<Player> sender() {
-        return new BkktSender(this.event.getPlayer());
-    }
-
+  @NotNull
+  @Override
+  public Sender<Player> getSender() {
+    return this.sender;
+  }
 }

@@ -24,10 +24,20 @@
 
 package io.github.portlek.input;
 
-public interface Task<T> {
+/**
+ * an interface to determine tasks.
+ */
+public interface Task {
 
-    boolean isCancelled();
+  /**
+   * checks if the task is cancelled.
+   *
+   * @return {@code true} if the test is cancelled.
+   */
+  boolean isCancelled();
 
-    void cancel();
-
+  /**
+   * cancels the task.
+   */
+  void cancel();
 }

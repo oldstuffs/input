@@ -20,24 +20,19 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
- *
  */
 
-package io.github.portlek.input.bukkit.impl;
+package io.github.portlek.input;
 
-import org.junit.jupiter.api.Test;
+import org.jetbrains.annotations.NotNull;
 
-class BkktSenderTest {
+/**
+ * a class that wraps an abstract object to get the real object.
+ *
+ * @param <T> the wrapped object type.
+ */
+public interface Wrap<T> {
 
-  @Test
-  void getUniqueId() {
-  }
-
-  @Test
-  void sendMessage() {
-  }
-
-  @Test
-  void getWrapped() {
-  }
+  @NotNull
+  T getWrapped();
 }

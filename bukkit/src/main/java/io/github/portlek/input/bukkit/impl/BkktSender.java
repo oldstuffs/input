@@ -29,30 +29,40 @@ import java.util.UUID;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * an implementation for {@link Sender}.
+ */
 public final class BkktSender implements Sender<Player> {
 
-    @NotNull
-    private final Player player;
+  /**
+   * the player.
+   */
+  @NotNull
+  private final Player player;
 
-    public BkktSender(@NotNull final Player player) {
-        this.player = player;
-    }
+  /**
+   * ctor.
+   *
+   * @param player the player.
+   */
+  public BkktSender(@NotNull final Player player) {
+    this.player = player;
+  }
 
-    @NotNull
-    @Override
-    public UUID getUniqueId() {
-        return this.player.getUniqueId();
-    }
+  @NotNull
+  @Override
+  public UUID getUniqueId() {
+    return this.player.getUniqueId();
+  }
 
-    @Override
-    public void sendMessage(@NotNull final String message) {
-        this.player.sendMessage(message);
-    }
+  @Override
+  public void sendMessage(@NotNull final String message) {
+    this.player.sendMessage(message);
+  }
 
-    @NotNull
-    @Override
-    public Player get() {
-        return this.player;
-    }
-
+  @NotNull
+  @Override
+  public Player getWrapped() {
+    return this.player;
+  }
 }

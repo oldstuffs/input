@@ -24,27 +24,10 @@
 
 package io.github.portlek.input;
 
-import java.util.Optional;
-import org.jetbrains.annotations.NotNull;
+public interface ChatInput {
 
-public interface ChatInput<T, X, L> extends Self<L> {
-
-    @NotNull
-    Optional<T> getValue();
-
-    void start();
-
-    void unregister();
-
-    @NotNull
-    Optional<Task<X>> getExpireTask();
-
-    @NotNull
-    Optional<String> getInvalidInputMessage();
-
-    @NotNull
-    Optional<String> getSendValueMessage();
-
-    void unregisterListeners();
-
+  /**
+   * when this method is called the input will be asked to the player.
+   */
+  void start();
 }

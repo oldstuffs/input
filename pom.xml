@@ -1,4 +1,4 @@
-<?xmla7a523553bf574429419af69691a6e414695b5ab version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
   ~ MIT License
   ~
@@ -23,32 +23,28 @@
   ~ SOFTWARE.
   ~
   -->
-
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <artifactId>ppom</artifactId>
-        <groupId>io.github.portlek</groupId>
-        <version>1.8.20</version>
-    </parent>
-    <artifactId>input-parent</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <name>input-parent</name>
-    <packaging>pom</packaging>
-    <description>A library that gets input from players via chat in Minecraft.</description>
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>io.github.portlek</groupId>
+    <artifactId>ppom</artifactId>
+    <version>1.8.20</version>
+  </parent>
+  <artifactId>input-parent</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <name>input-parent</name>
+  <packaging>pom</packaging>
+  <description>A library that gets input from players via chat in Minecraft.</description>
+  <url>https://github.com/portlek/input</url>
+  <scm>
     <url>https://github.com/portlek/input</url>
-
-    <modules>
-        <module>common</module>
-        <module>bukkit</module>
-    </modules>
-
-    <scm>
-        <connection>scm:git:git://github.com/portlek/input.git</connection>
-        <developerConnection>scm:git:ssh://github.com/portlek/input.git</developerConnection>
-        <url>https://github.com/portlek/input</url>
-    </scm>
-
+    <connection>scm:git:git://github.com/portlek/input.git</connection>
+    <developerConnection>scm:git:ssh://github.com/portlek/input.git</developerConnection>
+  </scm>
+  <modules>
+    <module>common</module>
+    <module>bukkit</module>
+  </modules>
 </project>

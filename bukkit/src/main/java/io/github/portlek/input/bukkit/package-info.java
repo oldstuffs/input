@@ -20,15 +20,10 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
+ *
  */
-
-package io.github.portlek.input;
-
-import org.jetbrains.annotations.NotNull;
-
-public interface Get<T> {
-
-    @NotNull
-    T get();
-
-}
+/**
+ * the package that contains {@link io.github.portlek.input.ChatInput} and
+ * {@link io.github.portlek.input.ChatInputBuilder} implementations.
+ */
+package io.github.portlek.input.bukkit;

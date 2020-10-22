@@ -26,13 +26,14 @@ package io.github.portlek.input.bukkit;
 
 import io.github.portlek.input.ChatInputPlugin;
 import io.github.portlek.input.CoreChatInput;
+import io.github.portlek.input.Sender;
 import io.github.portlek.input.Task;
 import io.github.portlek.input.bukkit.impl.BkktChatEvent;
 import io.github.portlek.input.bukkit.impl.BkktQuitEvent;
-import io.github.portlek.input.bukkit.impl.BkktSender;
 import io.github.portlek.input.bukkit.impl.BkktTask;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
+import java.util.function.BiPredicate;
 import java.util.function.Consumer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -44,48 +45,77 @@ import org.bukkit.scheduler.BukkitTask;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public final class BukkitChatInput<T> extends CoreChatInput<T, Player, BkktSender, BukkitTask, BkktChatEvent,
-    BkktQuitEvent, Listener> implements Listener {
+/**
+ * an implementation for {@link io.github.portlek.input.ChatInput}.
+ *
+ * @param <T> the value type.
+ */
+public final class BukkitChatInput<T> extends CoreChatInput<T, Player, BukkitTask, Listener> implements Listener {
 
-    public BukkitChatInput(@NotNull final ChatInputPlugin<BukkitTask, Listener> plugin,
-                           @NotNull final BkktSender sender, @Nullable final String invalidInputMessage,
-                           @Nullable final String sendValueMessage,
-                           @NotNull final BiFunction<BkktSender, String, Boolean> isValidInput,
-                           @NotNull final BiFunction<BkktSender, String, T> setValue,
-                           @NotNull final BiConsumer<BkktSender, T> onFinish,
-                           @NotNull final Consumer<BkktSender> onCancel, @NotNull final Consumer<BkktSender> onExpire,
-                           @NotNull final String cancel,
-                           @NotNull final BiFunction<BkktSender, String, Boolean> onInvalidInput, final boolean repeat,
-                           final long expire) {
-        super(plugin, sender, invalidInputMessage, sendValueMessage, isValidInput, setValue, onFinish, onCancel,
-            onExpire, cancel, onInvalidInput, repeat, expire);
-    }
+  /**
+   * ctor.
+   *
+   * @param plugin the plugin.
+   * @param sender the sender.
+   * @param invalidInputMessage the invalid input message.
+   * @param sendValueMessage the send value message.
+   * @param isValidInput the is valid input.
+   * @param setValue the set value.
+   * @param onFinish the on finish.
+   * @param onCancel the on cancel.
+   * @param onExpire the on expire.
+   * @param cancel the cancel.
+   * @param onInvalidInput the on invalid input.
+   * @param repeat the repeat.
+   * @param expire the expire.
+   */
+  BukkitChatInput(@NotNull final ChatInputPlugin<BukkitTask, Listener> plugin,
+                  @NotNull final Sender<Player> sender, @Nullable final String invalidInputMessage,
+                  @Nullable final String sendValueMessage,
+                  @NotNull final BiPredicate<Sender<Player>, String> isValidInput,
+                  @NotNull final BiFunction<Sender<Player>, String, T> setValue,
+                  @NotNull final BiConsumer<Sender<Player>, T> onFinish,
+                  @NotNull final Consumer<Sender<Player>> onCancel, @NotNull final Consumer<Sender<Player>> onExpire,
+                  @NotNull final String cancel,
+                  @NotNull final BiPredicate<Sender<Player>, String> onInvalidInput, final boolean repeat,
+                  final long expire) {
+    super(plugin, sender, invalidInputMessage, sendValueMessage, isValidInput, setValue, onFinish, onCancel,
+      onExpire, cancel, onInvalidInput, repeat, expire);
+  }
 
-    @NotNull
-    @Override
-    public Task<BukkitTask> createTask(@NotNull final BukkitTask task) {
-        return new BkktTask(task);
-    }
+  /**
+   * runs when the player quits the game.
+   *
+   * @param event the event to handle.
+   */
+  @EventHandler
+  public void whenQuit(@NotNull final PlayerQuitEvent event) {
+    this.onQuit(new BkktQuitEvent(event));
+  }
 
-    @EventHandler
-    public void whenQuit(@NotNull final PlayerQuitEvent event) {
-        this.onQuit(new BkktQuitEvent(event));
-    }
+  /**
+   * runs when the player sends a chat message.
+   *
+   * @param event the event to handle.
+   */
+  @EventHandler
+  public void whenChat(@NotNull final AsyncPlayerChatEvent event) {
+    this.onChat(new BkktChatEvent(event));
+  }
 
-    @EventHandler
-    public void whenChat(@NotNull final AsyncPlayerChatEvent event) {
-        this.onChat(new BkktChatEvent(event));
-    }
+  @Override
+  public void unregisterListeners() {
+    HandlerList.unregisterAll(this);
+  }
 
-    @NotNull
-    @Override
-    public BukkitChatInput<T> self() {
-        return this;
-    }
+  @NotNull
+  @Override
+  public Task createTask(@NotNull final BukkitTask object) {
+    return new BkktTask(object);
+  }
 
-    @Override
-    public void unregisterListeners() {
-        HandlerList.unregisterAll(this);
-    }
-
+  @Override
+  protected Listener getListener() {
+    return this;
+  }
 }

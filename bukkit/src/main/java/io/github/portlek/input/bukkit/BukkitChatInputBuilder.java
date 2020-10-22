@@ -35,43 +35,43 @@ import org.bukkit.scheduler.BukkitTask;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * Builder for the {@link CoreChatInput} class
+ * builder for the {@link CoreChatInput} class.
  *
- * @param <T> The {@link CoreChatInput} type
- * @author Nemo_64
+ * @param <T> the {@link CoreChatInput} type.
  */
-public final class BukkitChatInputBuilder<T> extends ChatInputBuilder<T, Player, BkktSender, BukkitTask, Listener,
-    BukkitChatInputBuilder<T>> {
+public final class BukkitChatInputBuilder<T> extends ChatInputBuilder<T, Player, BukkitTask, Listener> {
 
-    /**
-     * @param plugin The main class of the plugin
-     * @param player The player that will send the input
-     */
-    public BukkitChatInputBuilder(@NotNull final Plugin plugin, @NotNull final Player player) {
-        super(new BkktPlugin(plugin), new BkktSender(player));
-    }
+  /**
+   * @param plugin The main class of the plugin
+   * @param player The player that will send the input
+   */
+  private BukkitChatInputBuilder(@NotNull final Plugin plugin, @NotNull final Player player) {
+    super(new BkktPlugin(plugin), new BkktSender(player));
+  }
 
-    @NotNull
-    public static <T> BukkitChatInputBuilder<T> builder(@NotNull final Plugin plugin, @NotNull final Player player) {
-        return new BukkitChatInputBuilder<>(plugin, player);
-    }
+  /**
+   * initiates a {@code this} instance.
+   *
+   * @param plugin the plugin to initiate.
+   * @param player the player to initiate.
+   * @param <T> the value type.
+   *
+   * @return an instance of {@code this}.
+   */
+  @NotNull
+  public static <T> BukkitChatInputBuilder<T> builder(@NotNull final Plugin plugin, @NotNull final Player player) {
+    return new BukkitChatInputBuilder<>(plugin, player);
+  }
 
-    /**
-     * Creates the {@link CoreChatInput}
-     *
-     * @return A new {@link CoreChatInput}
-     */
-    @NotNull
-    @Override
-    public BukkitChatInput<T> build() {
-        return new BukkitChatInput<>(this.plugin, this.sender, this.invalidInputMessage, this.sendValueMessage, this.isValidInput, this.setValue,
-            this.onFinish, this.onCancel, this.onExpire, this.cancel, this.onInvalidInput, this.repeat, this.expire);
-    }
-
-    @NotNull
-    @Override
-    public BukkitChatInputBuilder<T> self() {
-        return this;
-    }
-
+  /**
+   * Creates the {@link CoreChatInput}
+   *
+   * @return A new {@link CoreChatInput}
+   */
+  @NotNull
+  @Override
+  public BukkitChatInput<T> build() {
+    return new BukkitChatInput<>(this.plugin, this.sender, this.invalidInputMessage, this.sendValueMessage, this.isValidInput, this.setValue,
+      this.onFinish, this.onCancel, this.onExpire, this.cancel, this.onInvalidInput, this.repeat, this.expire);
+  }
 }

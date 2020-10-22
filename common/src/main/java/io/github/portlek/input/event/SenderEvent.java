@@ -27,9 +27,18 @@ package io.github.portlek.input.event;
 import io.github.portlek.input.Sender;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * an interface to determine events that have the sender in it.
+ *
+ * @param <P> the sender type.
+ */
 public interface SenderEvent<P> {
 
-    @NotNull
-    Sender<P> sender();
-
+  /**
+   * obtains the sender instance.
+   *
+   * @return the sender instance.
+   */
+  @NotNull
+  Sender<P> getSender();
 }

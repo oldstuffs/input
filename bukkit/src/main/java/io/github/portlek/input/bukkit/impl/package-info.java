@@ -22,22 +22,7 @@
  * SOFTWARE.
  *
  */
-
+/**
+ * the package that contains implementation for the common abstraction.
+ */
 package io.github.portlek.input.bukkit.impl;
-
-import org.junit.jupiter.api.Test;
-
-class BkktSenderTest {
-
-  @Test
-  void getUniqueId() {
-  }
-
-  @Test
-  void sendMessage() {
-  }
-
-  @Test
-  void getWrapped() {
-  }
-}

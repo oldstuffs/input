@@ -22,22 +22,7 @@
  * SOFTWARE.
  *
  */
-
-package io.github.portlek.input.bukkit.impl;
-
-import org.junit.jupiter.api.Test;
-
-class BkktSenderTest {
-
-  @Test
-  void getUniqueId() {
-  }
-
-  @Test
-  void sendMessage() {
-  }
-
-  @Test
-  void getWrapped() {
-  }
-}
+/**
+ * the package that contains event interfaces.
+ */
+package io.github.portlek.input.event;

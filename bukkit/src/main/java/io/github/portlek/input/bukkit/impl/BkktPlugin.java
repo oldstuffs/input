@@ -25,27 +25,52 @@
 package io.github.portlek.input.bukkit.impl;
 
 import io.github.portlek.input.ChatInputPlugin;
-import lombok.RequiredArgsConstructor;
+import java.util.function.BiFunction;
+import java.util.function.Consumer;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.PluginManager;
+import org.bukkit.scheduler.BukkitScheduler;
 import org.bukkit.scheduler.BukkitTask;
 import org.jetbrains.annotations.NotNull;
 
-@RequiredArgsConstructor
+/**
+ * an implementation for {@link ChatInputPlugin}.
+ */
 public final class BkktPlugin implements ChatInputPlugin<BukkitTask, Listener> {
 
-    @NotNull
-    private final Plugin plugin;
+  /**
+   * the plugin manager.
+   */
+  @NotNull
+  private final Consumer<Listener> registerEvent;
 
-    @Override
-    public void registerEvent(@NotNull final Listener event) {
-        this.plugin.getServer().getPluginManager().registerEvents(event, this.plugin);
-    }
+  /**
+   * the scheduler.
+   */
+  @NotNull
+  private final BiFunction<Runnable, Long, BukkitTask> createRunTaskLater;
 
-    @NotNull
-    @Override
-    public BukkitTask createRunTaskLater(@NotNull final Runnable runnable, final long time) {
-        return this.plugin.getServer().getScheduler().runTaskLater(this.plugin, runnable, time);
-    }
+  /**
+   * ctor.
+   *
+   * @param plugin the plugin.
+   */
+  public BkktPlugin(@NotNull final Plugin plugin) {
+    final PluginManager pluginManager = plugin.getServer().getPluginManager();
+    final BukkitScheduler scheduler = plugin.getServer().getScheduler();
+    this.registerEvent = listener -> pluginManager.registerEvents(listener, plugin);
+    this.createRunTaskLater = (runnable, time) -> scheduler.runTaskLater(plugin, runnable, time);
+  }
 
+  @Override
+  public void registerEvent(@NotNull final Listener listener) {
+    this.registerEvent.accept(listener);
+  }
+
+  @NotNull
+  @Override
+  public BukkitTask createRunTaskLater(@NotNull final Runnable runnable, final long time) {
+    return this.createRunTaskLater.apply(runnable, time);
+  }
 }

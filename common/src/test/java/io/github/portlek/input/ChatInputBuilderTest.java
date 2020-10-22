@@ -23,21 +23,61 @@
  *
  */
 
-package io.github.portlek.input.bukkit.impl;
+package io.github.portlek.input;
 
 import org.junit.jupiter.api.Test;
 
-class BkktSenderTest {
+class ChatInputBuilderTest {
 
   @Test
-  void getUniqueId() {
+  void expire() {
   }
 
   @Test
-  void sendMessage() {
+  void invalidInputMessage() {
   }
 
   @Test
-  void getWrapped() {
+  void sendValueMessage() {
+  }
+
+  @Test
+  void toCancel() {
+  }
+
+  @Test
+  void defaultValue() {
+  }
+
+  @Test
+  void repeat() {
+  }
+
+  @Test
+  void onExpire() {
+  }
+
+  @Test
+  void onInvalidInput() {
+  }
+
+  @Test
+  void isValidInput() {
+  }
+
+  @Test
+  void onFinish() {
+  }
+
+  @Test
+  void onCancel() {
+  }
+
+  @Test
+  void setValue() {
+  }
+
+  @Test
+  void build() {
   }
 }
