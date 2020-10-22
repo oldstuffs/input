@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2020 MrNemo64
+ * Copyright (c) 2020 Hasan Demirtaş
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -15,49 +15,25 @@
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NON INFRINGEMENT. IN NO EVENT SHALL THE
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
+ *
  */
 
 package io.github.portlek.input.bukkit.impl;
 
-import org.bukkit.scheduler.BukkitTask;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
-public final class BkktTaskTest {
+class BkktTaskTest {
 
-    private static final BukkitTask task = Mockito.mock(BukkitTask.class);
+  @Test
+  void isCancelled() {
+  }
 
-    private static boolean cancelled = false;
-
-    private final BkktTask bkktTask = new BkktTask(BkktTaskTest.task);
-
-    @BeforeAll
-    static void prepare() {
-        Mockito.when(BkktTaskTest.task.isCancelled())
-            .thenReturn(true);
-        Mockito.doAnswer(invocationOnMock -> {
-            BkktTaskTest.cancelled = true;
-            return null;
-        }).when(BkktTaskTest.task)
-            .cancel();
-    }
-
-    @Test
-    void isCancelled() {
-        Assertions.assertTrue(this.bkktTask.isCancelled(), "The task not cancelled!");
-    }
-
-    @Test
-    void cancel() {
-        this.bkktTask.cancel();
-        Assertions.assertTrue(BkktTaskTest.cancelled, "The task couldn't be cancelled!");
-    }
-
+  @Test
+  void cancel() {
+  }
 }

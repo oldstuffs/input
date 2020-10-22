@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2020 MrNemo64
+ * Copyright (c) 2020 Hasan Demirtaş
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -15,32 +15,21 @@
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NON INFRINGEMENT. IN NO EVENT SHALL THE
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
+ *
  */
 
 package io.github.portlek.input.bukkit.impl;
 
-import org.bukkit.entity.Player;
-import org.bukkit.event.player.PlayerQuitEvent;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
-public final class BkktQuitEventTest {
+class BkktQuitEventTest {
 
-    private final Player player = Mockito.mock(Player.class);
-
-    private final PlayerQuitEvent event = new PlayerQuitEvent(this.player, "Quit message");
-
-    private final BkktQuitEvent bkktQuitEvent = new BkktQuitEvent(this.event);
-
-    @Test
-    void sender() {
-        Assertions.assertEquals(this.player, this.bkktQuitEvent.sender().get(), "The sender is not same with #player!");
-    }
-
+  @Test
+  void getSender() {
+  }
 }

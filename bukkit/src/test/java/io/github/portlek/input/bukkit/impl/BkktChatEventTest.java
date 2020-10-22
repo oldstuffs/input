@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2020 MrNemo64
+ * Copyright (c) 2020 Hasan Demirtaş
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -15,45 +15,29 @@
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NON INFRINGEMENT. IN NO EVENT SHALL THE
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
+ *
  */
 
 package io.github.portlek.input.bukkit.impl;
 
-import java.util.HashSet;
-import org.bukkit.entity.Player;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
-public final class BkktChatEventTest {
+class BkktChatEventTest {
 
-    private final Player player = Mockito.mock(Player.class);
+  @Test
+  void cancel() {
+  }
 
-    private final AsyncPlayerChatEvent event =
-        new AsyncPlayerChatEvent(true, this.player, "Test message", new HashSet<>());
+  @Test
+  void getMessage() {
+  }
 
-    private final BkktChatEvent bkktChatEvent = new BkktChatEvent(this.event);
-
-    @Test
-    void testCancel() {
-        this.bkktChatEvent.cancel();
-        Assertions.assertTrue(this.event.isCancelled(), "The chat event couldn't be cancelled!");
-    }
-
-    @Test
-    void testMessage() {
-        Assertions.assertEquals("Test message", this.bkktChatEvent.message(), "The chat event's message is not the `Test message`!");
-    }
-
-    @Test
-    void testSender() {
-        Assertions.assertEquals(this.player, this.bkktChatEvent.sender().get(), "The chat event's sender is not the #player!");
-    }
-
+  @Test
+  void getSender() {
+  }
 }

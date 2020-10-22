@@ -22,36 +22,7 @@
  * SOFTWARE.
  *
  */
-
-package io.github.portlek.input.bukkit;
-
-import org.junit.jupiter.api.Test;
-
-class BukkitChatInputBuilderTest {
-
-  @Test
-  void builder() {
-//    BukkitChatInputBuilder.builder(null, null);
-  }
-
-  @Test
-  void build() {
-//    BukkitChatInputBuilder.builder(null, null)
-//      .expire(1)
-//      .sendValueMessage("")
-//      .invalidInputMessage("")
-//      .isValidInput((playerSender, s) -> true)
-//      .defaultValue("")
-//      .onCancel(playerSender -> {
-//      })
-//      .onInvalidInput((playerSender, s) -> false)
-//      .onExpire(playerSender -> {
-//      })
-//      .onFinish((playerSender, o) -> {
-//      })
-//      .repeat(false)
-//      .setValue((playerSender, s) -> "")
-//      .toCancel("")
-//      .build();
-  }
-}
+/**
+ * the package that contains all interface and common classes.
+ */
+package io.github.portlek.input;

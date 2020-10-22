@@ -30,30 +30,47 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * an implementation for {@link ChatEvent}.
+ */
 public final class BkktChatEvent implements ChatEvent<Player> {
 
-    @NotNull
-    private final AsyncPlayerChatEvent event;
+  /**
+   * the event.
+   */
+  @NotNull
+  private final AsyncPlayerChatEvent event;
 
-    public BkktChatEvent(@NotNull final AsyncPlayerChatEvent event) {
-        this.event = event;
-    }
+  /**
+   * the sender.
+   */
+  @NotNull
+  private final Sender<Player> sender;
 
-    @Override
-    public void cancel() {
-        this.event.setCancelled(true);
-    }
+  /**
+   * ctor.
+   *
+   * @param event the event.
+   */
+  public BkktChatEvent(@NotNull final AsyncPlayerChatEvent event) {
+    this.event = event;
+    this.sender = new BkktSender(this.event.getPlayer());
+  }
 
-    @NotNull
-    @Override
-    public String message() {
-        return this.event.getMessage();
-    }
+  @Override
+  public void cancel() {
+    this.event.setCancelled(true);
+  }
 
-    @NotNull
-    @Override
-    public Sender<Player> sender() {
-        return new BkktSender(this.event.getPlayer());
-    }
+  @NotNull
+  @Override
+  public String getMessage() {
+    return this.event.getMessage();
+  }
 
+  @NotNull
+  @Override
+  public Sender<Player> getSender() {
+    return this.sender;
+  }
 }

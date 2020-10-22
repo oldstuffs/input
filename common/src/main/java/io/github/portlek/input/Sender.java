@@ -27,11 +27,25 @@ package io.github.portlek.input;
 import java.util.UUID;
 import org.jetbrains.annotations.NotNull;
 
-public interface Sender<T> extends Get<T> {
+/**
+ * an interface to determine the input's sender.
+ *
+ * @param <T> the abstract type of the sender.
+ */
+public interface Sender<T> extends Wrap<T> {
 
-    @NotNull
-    UUID getUniqueId();
+  /**
+   * obtains sender's unique id.
+   *
+   * @return the unique id of the sender.
+   */
+  @NotNull
+  UUID getUniqueId();
 
-    void sendMessage(@NotNull String message);
-
+  /**
+   * sends the given message to the input's sender.
+   *
+   * @param message the message to send.
+   */
+  void sendMessage(@NotNull String message);
 }

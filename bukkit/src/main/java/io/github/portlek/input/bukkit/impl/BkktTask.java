@@ -28,23 +28,33 @@ import io.github.portlek.input.Task;
 import org.bukkit.scheduler.BukkitTask;
 import org.jetbrains.annotations.NotNull;
 
-public final class BkktTask implements Task<BukkitTask> {
+/**
+ * an implementation for {@link Task}.
+ */
+public final class BkktTask implements Task {
 
-    @NotNull
-    private final BukkitTask task;
+  /**
+   * the task.
+   */
+  @NotNull
+  private final BukkitTask task;
 
-    public BkktTask(@NotNull final BukkitTask task) {
-        this.task = task;
-    }
+  /**
+   * ctor.
+   *
+   * @param task the task.
+   */
+  public BkktTask(@NotNull final BukkitTask task) {
+    this.task = task;
+  }
 
-    @Override
-    public boolean isCancelled() {
-        return this.task.isCancelled();
-    }
+  @Override
+  public boolean isCancelled() {
+    return this.task.isCancelled();
+  }
 
-    @Override
-    public void cancel() {
-        this.task.cancel();
-    }
-
+  @Override
+  public void cancel() {
+    this.task.cancel();
+  }
 }

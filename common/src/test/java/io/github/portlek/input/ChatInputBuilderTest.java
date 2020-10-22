@@ -23,35 +23,61 @@
  *
  */
 
-package io.github.portlek.input.bukkit;
+package io.github.portlek.input;
 
 import org.junit.jupiter.api.Test;
 
-class BukkitChatInputBuilderTest {
+class ChatInputBuilderTest {
 
   @Test
-  void builder() {
-//    BukkitChatInputBuilder.builder(null, null);
+  void expire() {
+  }
+
+  @Test
+  void invalidInputMessage() {
+  }
+
+  @Test
+  void sendValueMessage() {
+  }
+
+  @Test
+  void toCancel() {
+  }
+
+  @Test
+  void defaultValue() {
+  }
+
+  @Test
+  void repeat() {
+  }
+
+  @Test
+  void onExpire() {
+  }
+
+  @Test
+  void onInvalidInput() {
+  }
+
+  @Test
+  void isValidInput() {
+  }
+
+  @Test
+  void onFinish() {
+  }
+
+  @Test
+  void onCancel() {
+  }
+
+  @Test
+  void setValue() {
   }
 
   @Test
   void build() {
-//    BukkitChatInputBuilder.builder(null, null)
-//      .expire(1)
-//      .sendValueMessage("")
-//      .invalidInputMessage("")
-//      .isValidInput((playerSender, s) -> true)
-//      .defaultValue("")
-//      .onCancel(playerSender -> {
-//      })
-//      .onInvalidInput((playerSender, s) -> false)
-//      .onExpire(playerSender -> {
-//      })
-//      .onFinish((playerSender, o) -> {
-//      })
-//      .repeat(false)
-//      .setValue((playerSender, s) -> "")
-//      .toCancel("")
-//      .build();
   }
 }

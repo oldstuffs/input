@@ -26,11 +26,23 @@ package io.github.portlek.input.event;
 
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * an interface to determine chat events.
+ *
+ * @param <P> the sender type.
+ */
 public interface ChatEvent<P> extends SenderEvent<P> {
 
-    void cancel();
+  /**
+   * cancels the event.
+   */
+  void cancel();
 
-    @NotNull
-    String message();
-
+  /**
+   * obtains the sent message.
+   *
+   * @return the sent message.
+   */
+  @NotNull
+  String getMessage();
 }

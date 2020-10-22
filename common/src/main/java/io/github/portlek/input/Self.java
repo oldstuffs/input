@@ -26,9 +26,18 @@ package io.github.portlek.input;
 
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * an interface to determine class itself.
+ *
+ * @param <T> the class type.
+ */
 public interface Self<T> {
 
-    @NotNull
-    T self();
-
+  /**
+   * obtains the instance of the current class.
+   *
+   * @return an instance.
+   */
+  @NotNull
+  T getSelf();
 }

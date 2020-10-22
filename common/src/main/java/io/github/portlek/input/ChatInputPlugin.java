@@ -26,11 +26,29 @@ package io.github.portlek.input;
 
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * an interface to determine the plugin abstraction.
+ *
+ * @param <T> the listener class type.
+ * @param <L> the task class type.
+ */
 public interface ChatInputPlugin<T, L> {
 
-    void registerEvent(@NotNull L event);
+  /**
+   * registers the given listener.
+   *
+   * @param listener the listener to register.
+   */
+  void registerEvent(@NotNull L listener);
 
-    @NotNull
-    T createRunTaskLater(@NotNull Runnable runnable, long time);
-
+  /**
+   * creates an instance for the task.
+   *
+   * @param runnable the runnable to run.
+   * @param time the time to expire.
+   *
+   * @return an instance for the task.
+   */
+  @NotNull
+  T createRunTaskLater(@NotNull Runnable runnable, long time);
 }
