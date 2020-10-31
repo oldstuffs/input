@@ -1,6 +1,6 @@
 [![idea](https://www.elegantobjects.org/intellij-idea.svg)](https://www.jetbrains.com/idea/)
 
-[![Build Status](https://travis-ci.com/portlek/input.svg?branch=master)](https://travis-ci.com/portlek/input)
+![master](https://github.com/portlek/input/workflows/build/badge.svg)
 ![Maven Central](https://img.shields.io/maven-central/v/io.github.portlek/input-common?label=version)
 ## How to Use
 ```xml
