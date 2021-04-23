@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2020 MrNemo64
+ * Copyright (c) 2021 MrNemo64
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -63,11 +63,6 @@ public final class BukkitChatInputBuilder<T> extends ChatInputBuilder<T, Player,
     return new BukkitChatInputBuilder<>(plugin, player);
   }
 
-  /**
-   * Creates the {@link CoreChatInput}
-   *
-   * @return A new {@link CoreChatInput}
-   */
   @NotNull
   @Override
   public BukkitChatInput<T> build() {

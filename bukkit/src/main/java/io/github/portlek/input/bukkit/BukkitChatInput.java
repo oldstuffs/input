@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2020 MrNemo64
+ * Copyright (c) 2021 MrNemo64
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -83,14 +83,20 @@ public final class BukkitChatInput<T> extends CoreChatInput<T, Player, BukkitTas
       onExpire, cancel, onInvalidInput, repeat, expire);
   }
 
-  /**
-   * runs when the player quits the game.
-   *
-   * @param event the event to handle.
-   */
-  @EventHandler
-  public void whenQuit(@NotNull final PlayerQuitEvent event) {
-    this.onQuit(new BkktQuitEvent(event));
+  @NotNull
+  @Override
+  public Task createTask(@NotNull final BukkitTask object) {
+    return new BkktTask(object);
+  }
+
+  @Override
+  protected Listener getListener() {
+    return this;
+  }
+
+  @Override
+  public void unregisterListeners() {
+    HandlerList.unregisterAll(this);
   }
 
   /**
@@ -103,19 +109,13 @@ public final class BukkitChatInput<T> extends CoreChatInput<T, Player, BukkitTas
     this.onChat(new BkktChatEvent(event));
   }
 
-  @Override
-  public void unregisterListeners() {
-    HandlerList.unregisterAll(this);
-  }
-
-  @NotNull
-  @Override
-  public Task createTask(@NotNull final BukkitTask object) {
-    return new BkktTask(object);
-  }
-
-  @Override
-  protected Listener getListener() {
-    return this;
+  /**
+   * runs when the player quits the game.
+   *
+   * @param event the event to handle.
+   */
+  @EventHandler
+  public void whenQuit(@NotNull final PlayerQuitEvent event) {
+    this.onQuit(new BkktQuitEvent(event));
   }
 }

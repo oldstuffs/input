@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2020 Hasan Demirtaş
+ * Copyright (c) 2021 Hasan Demirtaş
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -35,13 +35,6 @@ import org.jetbrains.annotations.NotNull;
 public interface ChatInputPlugin<T, L> {
 
   /**
-   * registers the given listener.
-   *
-   * @param listener the listener to register.
-   */
-  void registerEvent(@NotNull L listener);
-
-  /**
    * creates an instance for the task.
    *
    * @param runnable the runnable to run.
@@ -51,4 +44,11 @@ public interface ChatInputPlugin<T, L> {
    */
   @NotNull
   T createRunTaskLater(@NotNull Runnable runnable, long time);
+
+  /**
+   * registers the given listener.
+   *
+   * @param listener the listener to register.
+   */
+  void registerEvent(@NotNull L listener);
 }
