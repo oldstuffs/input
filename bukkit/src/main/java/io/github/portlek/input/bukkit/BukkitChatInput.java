@@ -98,7 +98,7 @@ public final class BukkitChatInput<T> extends CoreChatInput<T, Player, BukkitTas
    *
    * @param event the event to handle.
    */
-  @EventHandler
+  @EventHandler(ignoreCancelled = true)
   public void whenChat(@NotNull final AsyncPlayerChatEvent event) {
     this.onChat(new BkktChatEvent(event));
   }
