@@ -2,7 +2,9 @@
 
 ![master](https://github.com/portlek/input/workflows/build/badge.svg)
 ![Maven Central](https://img.shields.io/maven-central/v/io.github.portlek/input-common?label=version)
+
 ## How to Use
+
 ```xml
 <!-- For Bukkit projects. -->
 <dependency>
@@ -11,11 +13,14 @@
   <version>${version}</version>
 </dependency>
 ```
+
 ```groovy
 // For Bukkit projects.
 implementation("io.github.portlek:input-bukkit:${version}")
 ```
+
 ## Example usage
+
 ```java
 final class TestCommand implements CommandExecutor {
 
