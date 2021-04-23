@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2020 Hasan Demirtaş
+ * Copyright (c) 2021 Hasan Demirtaş
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -54,29 +54,27 @@ public abstract class ChatInputBuilder<T, P, X, L> {
   protected final Sender<P> sender;
 
   /**
-   * the on invalid input.
+   * the cancel.
    */
   @NotNull
-  protected BiPredicate<Sender<P>, String> onInvalidInput = (p, mes) -> true;
+  protected String cancel = "cancel";
+
+  /**
+   * the expire.
+   */
+  protected long expire = -1L;
+
+  /**
+   * the invalid input message.
+   */
+  @Nullable
+  protected String invalidInputMessage = "That is not a valid input";
 
   /**
    * the is valid input.
    */
   @NotNull
   protected BiPredicate<Sender<P>, String> isValidInput = (p, mes) -> true;
-
-  /**
-   * the set value.
-   */
-  @NotNull
-  protected BiFunction<Sender<P>, String, T> setValue = (p, mes) -> this.value;
-
-  /**
-   * the on finish.
-   */
-  @NotNull
-  protected BiConsumer<Sender<P>, T> onFinish = (p, val) -> {
-  };
 
   /**
    * the on cancel.
@@ -93,10 +91,22 @@ public abstract class ChatInputBuilder<T, P, X, L> {
   };
 
   /**
-   * the invalid input message.
+   * the on finish.
    */
-  @Nullable
-  protected String invalidInputMessage = "That is not a valid input";
+  @NotNull
+  protected BiConsumer<Sender<P>, T> onFinish = (p, val) -> {
+  };
+
+  /**
+   * the on invalid input.
+   */
+  @NotNull
+  protected BiPredicate<Sender<P>, String> onInvalidInput = (p, mes) -> true;
+
+  /**
+   * the repeat.
+   */
+  protected boolean repeat = true;
 
   /**
    * the send value message.
@@ -105,26 +115,16 @@ public abstract class ChatInputBuilder<T, P, X, L> {
   protected String sendValueMessage = "Send in the chat the value";
 
   /**
-   * the expire.
-   */
-  protected long expire = -1L;
-
-  /**
-   * the repeat.
-   */
-  protected boolean repeat = true;
-
-  /**
-   * the cancel.
-   */
-  @NotNull
-  protected String cancel = "cancel";
-
-  /**
    * the value.
    */
   @Nullable
   private T value;
+
+  /**
+   * the set value.
+   */
+  @NotNull
+  protected BiFunction<Sender<P>, String, T> setValue = (p, mes) -> this.value;
 
   /**
    * ctor.
@@ -135,6 +135,19 @@ public abstract class ChatInputBuilder<T, P, X, L> {
   protected ChatInputBuilder(@NotNull final ChatInputPlugin<X, L> plugin, @NotNull final Sender<P> sender) {
     this.plugin = plugin;
     this.sender = sender;
+  }
+
+  /**
+   * sets {@link ChatInputBuilder#value} and return {@code this}.
+   *
+   * @param value the value to set.
+   *
+   * @return {@code this}.
+   */
+  @NotNull
+  public final ChatInputBuilder<T, P, X, L> defaultValue(@Nullable final T value) {
+    this.value = value;
+    return this;
   }
 
   /**
@@ -164,54 +177,28 @@ public abstract class ChatInputBuilder<T, P, X, L> {
   }
 
   /**
-   * sets {@link ChatInputBuilder#sendValueMessage} and return {@code this}.
+   * sets {@link ChatInputBuilder#isValidInput} and return {@code this}.
    *
-   * @param sendValueMessage the send value message to set.
+   * @param isValidInput the is valid input to set.
    *
    * @return {@code this}.
    */
   @NotNull
-  public final ChatInputBuilder<T, P, X, L> sendValueMessage(@Nullable final String sendValueMessage) {
-    this.sendValueMessage = sendValueMessage;
+  public final ChatInputBuilder<T, P, X, L> isValidInput(@NotNull final BiPredicate<Sender<P>, String> isValidInput) {
+    this.isValidInput = isValidInput;
     return this;
   }
 
   /**
-   * sets {@link ChatInputBuilder#cancel} and return {@code this}.
+   * sets {@link ChatInputBuilder#onCancel} and return {@code this}.
    *
-   * @param cancel the cancel to set.
-   *
-   * @return {@code this}.
-   */
-  @NotNull
-  public final ChatInputBuilder<T, P, X, L> toCancel(@NotNull final String cancel) {
-    this.cancel = cancel;
-    return this;
-  }
-
-  /**
-   * sets {@link ChatInputBuilder#value} and return {@code this}.
-   *
-   * @param value the value to set.
+   * @param onCancel the on cancel to set.
    *
    * @return {@code this}.
    */
   @NotNull
-  public final ChatInputBuilder<T, P, X, L> defaultValue(@Nullable final T value) {
-    this.value = value;
-    return this;
-  }
-
-  /**
-   * sets {@link ChatInputBuilder#repeat} and return {@code this}.
-   *
-   * @param repeat the repeat to set.
-   *
-   * @return {@code this}.
-   */
-  @NotNull
-  public final ChatInputBuilder<T, P, X, L> repeat(final boolean repeat) {
-    this.repeat = repeat;
+  public final ChatInputBuilder<T, P, X, L> onCancel(@NotNull final Consumer<Sender<P>> onCancel) {
+    this.onCancel = onCancel;
     return this;
   }
 
@@ -225,6 +212,19 @@ public abstract class ChatInputBuilder<T, P, X, L> {
   @NotNull
   public final ChatInputBuilder<T, P, X, L> onExpire(@NotNull final Consumer<Sender<P>> onExpire) {
     this.onExpire = onExpire;
+    return this;
+  }
+
+  /**
+   * sets {@link ChatInputBuilder#onFinish} and return {@code this}.
+   *
+   * @param onFinish the on finish to set.
+   *
+   * @return {@code this}.
+   */
+  @NotNull
+  public final ChatInputBuilder<T, P, X, L> onFinish(@NotNull final BiConsumer<Sender<P>, T> onFinish) {
+    this.onFinish = onFinish;
     return this;
   }
 
@@ -243,41 +243,28 @@ public abstract class ChatInputBuilder<T, P, X, L> {
   }
 
   /**
-   * sets {@link ChatInputBuilder#isValidInput} and return {@code this}.
+   * sets {@link ChatInputBuilder#repeat} and return {@code this}.
    *
-   * @param isValidInput the is valid input to set.
+   * @param repeat the repeat to set.
    *
    * @return {@code this}.
    */
   @NotNull
-  public final ChatInputBuilder<T, P, X, L> isValidInput(@NotNull final BiPredicate<Sender<P>, String> isValidInput) {
-    this.isValidInput = isValidInput;
+  public final ChatInputBuilder<T, P, X, L> repeat(final boolean repeat) {
+    this.repeat = repeat;
     return this;
   }
 
   /**
-   * sets {@link ChatInputBuilder#onFinish} and return {@code this}.
+   * sets {@link ChatInputBuilder#sendValueMessage} and return {@code this}.
    *
-   * @param onFinish the on finish to set.
-   *
-   * @return {@code this}.
-   */
-  @NotNull
-  public final ChatInputBuilder<T, P, X, L> onFinish(@NotNull final BiConsumer<Sender<P>, T> onFinish) {
-    this.onFinish = onFinish;
-    return this;
-  }
-
-  /**
-   * sets {@link ChatInputBuilder#onCancel} and return {@code this}.
-   *
-   * @param onCancel the on cancel to set.
+   * @param sendValueMessage the send value message to set.
    *
    * @return {@code this}.
    */
   @NotNull
-  public final ChatInputBuilder<T, P, X, L> onCancel(@NotNull final Consumer<Sender<P>> onCancel) {
-    this.onCancel = onCancel;
+  public final ChatInputBuilder<T, P, X, L> sendValueMessage(@Nullable final String sendValueMessage) {
+    this.sendValueMessage = sendValueMessage;
     return this;
   }
 
@@ -291,6 +278,19 @@ public abstract class ChatInputBuilder<T, P, X, L> {
   @NotNull
   public final ChatInputBuilder<T, P, X, L> setValue(@NotNull final BiFunction<Sender<P>, String, T> setValue) {
     this.setValue = setValue;
+    return this;
+  }
+
+  /**
+   * sets {@link ChatInputBuilder#cancel} and return {@code this}.
+   *
+   * @param cancel the cancel to set.
+   *
+   * @return {@code this}.
+   */
+  @NotNull
+  public final ChatInputBuilder<T, P, X, L> toCancel(@NotNull final String cancel) {
+    this.cancel = cancel;
     return this;
   }
 

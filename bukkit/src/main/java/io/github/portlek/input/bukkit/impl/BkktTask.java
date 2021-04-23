@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2020 MrNemo64
+ * Copyright (c) 2021 MrNemo64
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -49,12 +49,12 @@ public final class BkktTask implements Task {
   }
 
   @Override
-  public boolean isCancelled() {
-    return this.task.isCancelled();
+  public void cancel() {
+    this.task.cancel();
   }
 
   @Override
-  public void cancel() {
-    this.task.cancel();
+  public boolean isCancelled() {
+    return this.task.isCancelled();
   }
 }

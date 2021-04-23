@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2020 MrNemo64
+ * Copyright (c) 2021 MrNemo64
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -40,16 +40,16 @@ import org.jetbrains.annotations.NotNull;
 public final class BkktPlugin implements ChatInputPlugin<BukkitTask, Listener> {
 
   /**
-   * the plugin manager.
-   */
-  @NotNull
-  private final Consumer<Listener> registerEvent;
-
-  /**
    * the scheduler.
    */
   @NotNull
   private final BiFunction<Runnable, Long, BukkitTask> createRunTaskLater;
+
+  /**
+   * the plugin manager.
+   */
+  @NotNull
+  private final Consumer<Listener> registerEvent;
 
   /**
    * ctor.
@@ -63,14 +63,14 @@ public final class BkktPlugin implements ChatInputPlugin<BukkitTask, Listener> {
     this.createRunTaskLater = (runnable, time) -> scheduler.runTaskLater(plugin, runnable, time);
   }
 
-  @Override
-  public void registerEvent(@NotNull final Listener listener) {
-    this.registerEvent.accept(listener);
-  }
-
   @NotNull
   @Override
   public BukkitTask createRunTaskLater(@NotNull final Runnable runnable, final long time) {
     return this.createRunTaskLater.apply(runnable, time);
+  }
+
+  @Override
+  public void registerEvent(@NotNull final Listener listener) {
+    this.registerEvent.accept(listener);
   }
 }

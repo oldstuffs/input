@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2020 Hasan Demirtaş
+ * Copyright (c) 2021 Hasan Demirtaş
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -30,14 +30,14 @@ package io.github.portlek.input;
 public interface Task {
 
   /**
+   * cancels the task.
+   */
+  void cancel();
+
+  /**
    * checks if the task is cancelled.
    *
    * @return {@code true} if the test is cancelled.
    */
   boolean isCancelled();
-
-  /**
-   * cancels the task.
-   */
-  void cancel();
 }

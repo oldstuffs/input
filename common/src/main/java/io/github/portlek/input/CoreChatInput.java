@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2020 Hasan Demirtaş
+ * Copyright (c) 2021 Hasan Demirtaş
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -45,16 +45,15 @@ import org.jetbrains.annotations.Nullable;
 public abstract class CoreChatInput<T, P, X, L> implements ChatInput {
 
   /**
-   * the plugin.
+   * the cancel.
    */
   @NotNull
-  private final ChatInputPlugin<X, L> plugin;
+  private final String cancel;
 
   /**
-   * the sender.
+   * the expire.
    */
-  @NotNull
-  private final Sender<P> sender;
+  private final long expire;
 
   /**
    * the invalid input message.
@@ -63,28 +62,10 @@ public abstract class CoreChatInput<T, P, X, L> implements ChatInput {
   private final String invalidInputMessage;
 
   /**
-   * the send value message.
-   */
-  @Nullable
-  private final String sendValueMessage;
-
-  /**
    * the is valid input.
    */
   @NotNull
   private final BiPredicate<Sender<P>, String> isValidInput;
-
-  /**
-   * the set value.
-   */
-  @NotNull
-  private final BiFunction<Sender<P>, String, T> setValue;
-
-  /**
-   * the on finish.
-   */
-  @NotNull
-  private final BiConsumer<Sender<P>, T> onFinish;
 
   /**
    * the on cancel.
@@ -99,10 +80,10 @@ public abstract class CoreChatInput<T, P, X, L> implements ChatInput {
   private final Consumer<Sender<P>> onExpire;
 
   /**
-   * the cancel.
+   * the on finish.
    */
   @NotNull
-  private final String cancel;
+  private final BiConsumer<Sender<P>, T> onFinish;
 
   /**
    * the on invalid input.
@@ -111,14 +92,33 @@ public abstract class CoreChatInput<T, P, X, L> implements ChatInput {
   private final BiPredicate<Sender<P>, String> onInvalidInput;
 
   /**
+   * the plugin.
+   */
+  @NotNull
+  private final ChatInputPlugin<X, L> plugin;
+
+  /**
    * the repeat.
    */
   private final boolean repeat;
 
   /**
-   * the expire.
+   * the send value message.
    */
-  private final long expire;
+  @Nullable
+  private final String sendValueMessage;
+
+  /**
+   * the sender.
+   */
+  @NotNull
+  private final Sender<P> sender;
+
+  /**
+   * the set value.
+   */
+  @NotNull
+  private final BiFunction<Sender<P>, String, T> setValue;
 
   /**
    * the expire task.
@@ -184,28 +184,6 @@ public abstract class CoreChatInput<T, P, X, L> implements ChatInput {
   }
 
   /**
-   * un register all listeners.
-   */
-  protected abstract void unregisterListeners();
-
-  /**
-   * creates a {@link Task} from the given object.
-   *
-   * @param object the object to create.
-   *
-   * @return a {@link Task} instance.
-   */
-  @NotNull
-  protected abstract Task createTask(@NotNull X object);
-
-  /**
-   * obtains the listener to register.
-   *
-   * @return the listener to regsiter.
-   */
-  protected abstract L getListener();
-
-  /**
    * runs when the sender push an input.
    *
    * @param event the event to apply as a send message event.
@@ -250,6 +228,28 @@ public abstract class CoreChatInput<T, P, X, L> implements ChatInput {
       this.unregister();
     }
   }
+
+  /**
+   * creates a {@link Task} from the given object.
+   *
+   * @param object the object to create.
+   *
+   * @return a {@link Task} instance.
+   */
+  @NotNull
+  protected abstract Task createTask(@NotNull X object);
+
+  /**
+   * obtains the listener to register.
+   *
+   * @return the listener to regsiter.
+   */
+  protected abstract L getListener();
+
+  /**
+   * un register all listeners.
+   */
+  protected abstract void unregisterListeners();
 
   /**
    * unregisters the registered listeners and cancels all tasks.
