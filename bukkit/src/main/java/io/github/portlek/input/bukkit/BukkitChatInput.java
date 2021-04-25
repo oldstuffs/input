@@ -37,6 +37,7 @@ import java.util.function.BiPredicate;
 import java.util.function.Consumer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
@@ -104,7 +105,7 @@ public final class BukkitChatInput<T> extends CoreChatInput<T, Player, BukkitTas
    *
    * @param event the event to handle.
    */
-  @EventHandler(ignoreCancelled = true)
+  @EventHandler(priority = EventPriority.LOWEST)
   public void whenChat(@NotNull final AsyncPlayerChatEvent event) {
     this.onChat(new BkktChatEvent(event));
   }

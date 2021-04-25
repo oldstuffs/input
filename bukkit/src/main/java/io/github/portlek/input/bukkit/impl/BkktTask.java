@@ -25,6 +25,7 @@
 package io.github.portlek.input.bukkit.impl;
 
 import io.github.portlek.input.Task;
+import java.lang.reflect.Field;
 import org.bukkit.scheduler.BukkitTask;
 import org.jetbrains.annotations.NotNull;
 
