@@ -38,7 +38,7 @@ import org.jetbrains.annotations.NotNull;
 public final class PprSender implements Sender<Player> {
 
   /**
-   * wrapped
+   * the wrapped.
    */
   @NotNull
   @Getter
