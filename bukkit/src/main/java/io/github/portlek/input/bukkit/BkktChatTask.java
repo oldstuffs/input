@@ -22,7 +22,34 @@
  * SOFTWARE.
  *
  */
+
+package io.github.portlek.input.bukkit;
+
+import io.github.portlek.input.ChatTask;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import org.bukkit.scheduler.BukkitTask;
+import org.jetbrains.annotations.NotNull;
+
 /**
- * the package that contains implementation for the common abstraction.
+ * an implementation for {@link ChatTask}.
  */
-package io.github.portlek.input.paper.impl;
+@RequiredArgsConstructor(access = AccessLevel.PACKAGE)
+final class BkktChatTask implements ChatTask {
+
+  /**
+   * the task.
+   */
+  @NotNull
+  private final BukkitTask task;
+
+  @Override
+  public void cancel() {
+    this.task.cancel();
+  }
+
+  @Override
+  public boolean isCancelled() {
+    return this.task.isCancelled();
+  }
+}

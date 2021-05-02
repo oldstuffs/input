@@ -23,21 +23,37 @@
  *
  */
 
-package io.github.portlek.input.bukkit.impl;
+package io.github.portlek.input.paper;
 
-import org.junit.jupiter.api.Test;
+import io.github.portlek.input.ChatSender;
+import java.util.UUID;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
-class BkktSenderTest {
+/**
+ * an implementation for {@link ChatSender}.
+ */
+@RequiredArgsConstructor(access = AccessLevel.PACKAGE)
+final class PprChatSender implements ChatSender<Player> {
 
-  @Test
-  void getUniqueId() {
+  /**
+   * the wrapped.
+   */
+  @NotNull
+  @Getter
+  private final Player wrapped;
+
+  @NotNull
+  @Override
+  public UUID getUniqueId() {
+    return this.wrapped.getUniqueId();
   }
 
-  @Test
-  void getWrapped() {
-  }
-
-  @Test
-  void sendMessage() {
+  @Override
+  public void sendMessage(@NotNull final String message) {
+    this.wrapped.sendMessage(message);
   }
 }

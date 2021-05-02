@@ -24,7 +24,7 @@
 
 package io.github.portlek.input.event;
 
-import io.github.portlek.input.Sender;
+import io.github.portlek.input.ChatSender;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -40,5 +40,5 @@ public interface SenderEvent<P> {
    * @return the sender instance.
    */
   @NotNull
-  Sender<P> getSender();
+  ChatSender<P> getSender();
 }

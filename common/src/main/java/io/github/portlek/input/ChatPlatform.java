@@ -20,6 +20,7 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
+ *
  */
 
 package io.github.portlek.input;
@@ -27,17 +28,32 @@ package io.github.portlek.input;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * a class that wraps an abstract object to get the real object.
+ * an interface to determine chat platforms.
  *
- * @param <T> the wrapped object type.
+ * @param <P> type of the sender.
  */
-public interface Wrap<T> {
+public interface ChatPlatform<P> {
 
   /**
-   * obtains the wrapped object.
+   * creates an instance for the task.
    *
-   * @return wrapped object.
+   * @param runnable the runnable to run.
+   * @param time the time to expire.
+   *
+   * @return an instance for the task.
    */
   @NotNull
-  T getWrapped();
+  ChatTask createRunTaskLater(@NotNull Runnable runnable, long time);
+
+  /**
+   * initiates the platform.
+   *
+   * @param input the input to initiate.
+   */
+  void init(@NotNull ChatInput<?, P> input);
+
+  /**
+   * un register all listeners.
+   */
+  void unregisterListeners();
 }

@@ -12,11 +12,19 @@
   <artifactId>input-bukkit</artifactId>
   <version>${version}</version>
 </dependency>
+  <!-- For Paper projects. -->
+<dependency>
+<groupId>io.github.portlek</groupId>
+<artifactId>input-paper</artifactId>
+<version>${version}</version>
+</dependency>
 ```
 
 ```groovy
 // For Bukkit projects.
 implementation("io.github.portlek:input-bukkit:${version}")
+// For Paper projects.
+implementation("io.github.portlek:input-paper:${version}")
 ```
 
 ## Example usage
@@ -32,13 +40,14 @@ public final class TestCommand implements CommandExecutor {
   }
 
   @Override
-  public boolean onCommand(final CommandSender sender, final Command command, final String label, final String[] args) {
-    // PlayerChatInput only works with players
+  public boolean onCommand(@NotNull final CommandSender sender, @NotNull final Command command,
+                           @NotNull final String label, @NotNull final String[] args) {
+    // Input only works with players
     if (!(sender instanceof Player)) {
       sender.sendMessage("Only for players");
       return false;
     }
-    BukkitChatInputBuilder.<Integer>builder(this.plugin, player)
+    PaperChatPlatform.<Integer>builder((Player) sender)
       // Set the validation
       .isValidInput((player, input) -> {
         try {
@@ -80,6 +89,7 @@ public final class TestCommand implements CommandExecutor {
       .toCancel("cancel")
       .build()
       .start();
+    return true;
   }
 
   private long factorialOf(final int num) {

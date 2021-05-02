@@ -20,24 +20,24 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
- *
  */
 
-package io.github.portlek.input.bukkit.impl;
+package io.github.portlek.input;
 
-import org.junit.jupiter.api.Test;
+/**
+ * an interface to determine tasks.
+ */
+public interface ChatTask {
 
-class BkktChatEventTest {
+  /**
+   * cancels the task.
+   */
+  void cancel();
 
-  @Test
-  void cancel() {
-  }
-
-  @Test
-  void getMessage() {
-  }
-
-  @Test
-  void getSender() {
-  }
+  /**
+   * checks if the task is cancelled.
+   *
+   * @return {@code true} if the test is cancelled.
+   */
+  boolean isCancelled();
 }

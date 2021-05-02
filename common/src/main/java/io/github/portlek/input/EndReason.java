@@ -25,59 +25,32 @@
 
 package io.github.portlek.input;
 
-import org.junit.jupiter.api.Test;
-
-class ChatInputBuilderTest {
-
-  @Test
-  void build() {
-  }
-
-  @Test
-  void defaultValue() {
-  }
-
-  @Test
-  void expire() {
-  }
-
-  @Test
-  void invalidInputMessage() {
-  }
-
-  @Test
-  void isValidInput() {
-  }
-
-  @Test
-  void onCancel() {
-  }
-
-  @Test
-  void onExpire() {
-  }
-
-  @Test
-  void onFinish() {
-  }
-
-  @Test
-  void onInvalidInput() {
-  }
-
-  @Test
-  void repeat() {
-  }
-
-  @Test
-  void sendValueMessage() {
-  }
-
-  @Test
-  void setValue() {
-  }
-
-  @Test
-  void toCancel() {
-  }
+/**
+ * an enum class that contains en reason for chat input.
+ */
+public enum EndReason {
+  /**
+   * the player cancels.
+   */
+  PLAYER_CANCELS,
+  /**
+   * the finish.
+   */
+  FINISH,
+  /**
+   * the expire.
+   */
+  EXPIRE,
+  /**
+   * the player disconnects.
+   */
+  PLAYER_DISCONNECTS,
+  /**
+   * the invalid input.
+   */
+  INVALID_INPUT,
+  /**
+   * the custom.
+   */
+  CUSTOM
 }

@@ -23,17 +23,26 @@
  *
  */
 
-package io.github.portlek.input.bukkit.impl;
+package io.github.portlek.input.paper;
 
-import org.junit.jupiter.api.Test;
+import io.github.portlek.input.ChatSender;
+import io.github.portlek.input.event.QuitEvent;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
-class BkktTaskTest {
+/**
+ * an implementation for {@link QuitEvent}.
+ */
+@RequiredArgsConstructor(access = AccessLevel.PACKAGE)
+final class PprQuitEvent implements QuitEvent<Player> {
 
-  @Test
-  void cancel() {
-  }
-
-  @Test
-  void isCancelled() {
-  }
+  /**
+   * the sender.
+   */
+  @NotNull
+  @Getter
+  private final ChatSender<Player> sender;
 }
