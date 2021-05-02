@@ -24,6 +24,9 @@
 
 package io.github.portlek.input;
 
+/**
+ * an interface to determine chat inputs.
+ */
 public interface ChatInput {
 
   /**

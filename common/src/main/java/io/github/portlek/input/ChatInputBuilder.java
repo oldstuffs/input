@@ -28,6 +28,8 @@ import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.BiPredicate;
 import java.util.function.Consumer;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -36,16 +38,9 @@ import org.jetbrains.annotations.Nullable;
  *
  * @param <T> the value type.
  * @param <P> the input sender type.
- * @param <X> the task type.
- * @param <L> the listener type.
  */
-public abstract class ChatInputBuilder<T, P, X, L> {
-
-  /**
-   * the plugin.
-   */
-  @NotNull
-  protected final ChatInputPlugin<X, L> plugin;
+@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
+public abstract class ChatInputBuilder<T, P> {
 
   /**
    * the sender.
@@ -127,17 +122,6 @@ public abstract class ChatInputBuilder<T, P, X, L> {
   protected BiFunction<Sender<P>, String, T> setValue = (p, mes) -> this.value;
 
   /**
-   * ctor.
-   *
-   * @param plugin the plugin.
-   * @param sender the sender.
-   */
-  protected ChatInputBuilder(@NotNull final ChatInputPlugin<X, L> plugin, @NotNull final Sender<P> sender) {
-    this.plugin = plugin;
-    this.sender = sender;
-  }
-
-  /**
    * sets {@link ChatInputBuilder#value} and return {@code this}.
    *
    * @param value the value to set.
@@ -145,7 +129,7 @@ public abstract class ChatInputBuilder<T, P, X, L> {
    * @return {@code this}.
    */
   @NotNull
-  public final ChatInputBuilder<T, P, X, L> defaultValue(@Nullable final T value) {
+  public final ChatInputBuilder<T, P> defaultValue(@Nullable final T value) {
     this.value = value;
     return this;
   }
@@ -158,7 +142,7 @@ public abstract class ChatInputBuilder<T, P, X, L> {
    * @return {@code this}.
    */
   @NotNull
-  public final ChatInputBuilder<T, P, X, L> expire(final long expire) {
+  public final ChatInputBuilder<T, P> expire(final long expire) {
     this.expire = expire;
     return this;
   }
@@ -171,7 +155,7 @@ public abstract class ChatInputBuilder<T, P, X, L> {
    * @return {@code this}.
    */
   @NotNull
-  public final ChatInputBuilder<T, P, X, L> invalidInputMessage(@Nullable final String invalidInputMessage) {
+  public final ChatInputBuilder<T, P> invalidInputMessage(@Nullable final String invalidInputMessage) {
     this.invalidInputMessage = invalidInputMessage;
     return this;
   }
@@ -184,7 +168,7 @@ public abstract class ChatInputBuilder<T, P, X, L> {
    * @return {@code this}.
    */
   @NotNull
-  public final ChatInputBuilder<T, P, X, L> isValidInput(@NotNull final BiPredicate<Sender<P>, String> isValidInput) {
+  public final ChatInputBuilder<T, P> isValidInput(@NotNull final BiPredicate<Sender<P>, String> isValidInput) {
     this.isValidInput = isValidInput;
     return this;
   }
@@ -197,7 +181,7 @@ public abstract class ChatInputBuilder<T, P, X, L> {
    * @return {@code this}.
    */
   @NotNull
-  public final ChatInputBuilder<T, P, X, L> onCancel(@NotNull final Consumer<Sender<P>> onCancel) {
+  public final ChatInputBuilder<T, P> onCancel(@NotNull final Consumer<Sender<P>> onCancel) {
     this.onCancel = onCancel;
     return this;
   }
@@ -210,7 +194,7 @@ public abstract class ChatInputBuilder<T, P, X, L> {
    * @return {@code this}.
    */
   @NotNull
-  public final ChatInputBuilder<T, P, X, L> onExpire(@NotNull final Consumer<Sender<P>> onExpire) {
+  public final ChatInputBuilder<T, P> onExpire(@NotNull final Consumer<Sender<P>> onExpire) {
     this.onExpire = onExpire;
     return this;
   }
@@ -223,7 +207,7 @@ public abstract class ChatInputBuilder<T, P, X, L> {
    * @return {@code this}.
    */
   @NotNull
-  public final ChatInputBuilder<T, P, X, L> onFinish(@NotNull final BiConsumer<Sender<P>, T> onFinish) {
+  public final ChatInputBuilder<T, P> onFinish(@NotNull final BiConsumer<Sender<P>, T> onFinish) {
     this.onFinish = onFinish;
     return this;
   }
@@ -236,8 +220,7 @@ public abstract class ChatInputBuilder<T, P, X, L> {
    * @return {@code this}.
    */
   @NotNull
-  public final ChatInputBuilder<T, P, X, L> onInvalidInput(
-    @NotNull final BiPredicate<Sender<P>, String> onInvalidInput) {
+  public final ChatInputBuilder<T, P> onInvalidInput(@NotNull final BiPredicate<Sender<P>, String> onInvalidInput) {
     this.onInvalidInput = onInvalidInput;
     return this;
   }
@@ -250,7 +233,7 @@ public abstract class ChatInputBuilder<T, P, X, L> {
    * @return {@code this}.
    */
   @NotNull
-  public final ChatInputBuilder<T, P, X, L> repeat(final boolean repeat) {
+  public final ChatInputBuilder<T, P> repeat(final boolean repeat) {
     this.repeat = repeat;
     return this;
   }
@@ -263,7 +246,7 @@ public abstract class ChatInputBuilder<T, P, X, L> {
    * @return {@code this}.
    */
   @NotNull
-  public final ChatInputBuilder<T, P, X, L> sendValueMessage(@Nullable final String sendValueMessage) {
+  public final ChatInputBuilder<T, P> sendValueMessage(@Nullable final String sendValueMessage) {
     this.sendValueMessage = sendValueMessage;
     return this;
   }
@@ -276,7 +259,7 @@ public abstract class ChatInputBuilder<T, P, X, L> {
    * @return {@code this}.
    */
   @NotNull
-  public final ChatInputBuilder<T, P, X, L> setValue(@NotNull final BiFunction<Sender<P>, String, T> setValue) {
+  public final ChatInputBuilder<T, P> setValue(@NotNull final BiFunction<Sender<P>, String, T> setValue) {
     this.setValue = setValue;
     return this;
   }
@@ -289,7 +272,7 @@ public abstract class ChatInputBuilder<T, P, X, L> {
    * @return {@code this}.
    */
   @NotNull
-  public final ChatInputBuilder<T, P, X, L> toCancel(@NotNull final String cancel) {
+  public final ChatInputBuilder<T, P> toCancel(@NotNull final String cancel) {
     this.cancel = cancel;
     return this;
   }

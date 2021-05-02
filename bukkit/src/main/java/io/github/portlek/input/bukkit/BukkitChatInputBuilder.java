@@ -24,14 +24,12 @@
 
 package io.github.portlek.input.bukkit;
 
+import io.github.portlek.input.ChatInput;
 import io.github.portlek.input.ChatInputBuilder;
 import io.github.portlek.input.CoreChatInput;
-import io.github.portlek.input.bukkit.impl.BkktPlugin;
 import io.github.portlek.input.bukkit.impl.BkktSender;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.scheduler.BukkitTask;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -39,7 +37,13 @@ import org.jetbrains.annotations.NotNull;
  *
  * @param <T> the {@link CoreChatInput} type.
  */
-public final class BukkitChatInputBuilder<T> extends ChatInputBuilder<T, Player, BukkitTask, Listener> {
+public final class BukkitChatInputBuilder<T> extends ChatInputBuilder<T, Player> {
+
+  /**
+   * the plugin.
+   */
+  @NotNull
+  private final Plugin plugin;
 
   /**
    * ctor.
@@ -48,7 +52,8 @@ public final class BukkitChatInputBuilder<T> extends ChatInputBuilder<T, Player,
    * @param player The player that will send the input
    */
   private BukkitChatInputBuilder(@NotNull final Plugin plugin, @NotNull final Player player) {
-    super(new BkktPlugin(plugin), new BkktSender(player));
+    super(new BkktSender(player));
+    this.plugin = plugin;
   }
 
   /**
@@ -67,8 +72,9 @@ public final class BukkitChatInputBuilder<T> extends ChatInputBuilder<T, Player,
 
   @NotNull
   @Override
-  public BukkitChatInput<T> build() {
-    return new BukkitChatInput<>(this.plugin, this.sender, this.invalidInputMessage, this.sendValueMessage, this.isValidInput, this.setValue,
-      this.onFinish, this.onCancel, this.onExpire, this.cancel, this.onInvalidInput, this.repeat, this.expire);
+  public ChatInput build() {
+    return new BukkitChatInput<>(this.plugin, this.sender, this.invalidInputMessage, this.sendValueMessage,
+      this.isValidInput, this.setValue, this.onFinish, this.onCancel, this.onExpire, this.cancel, this.onInvalidInput,
+      this.repeat, this.expire);
   }
 }

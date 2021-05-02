@@ -31,6 +31,8 @@ import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.BiPredicate;
 import java.util.function.Consumer;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -39,10 +41,9 @@ import org.jetbrains.annotations.Nullable;
  *
  * @param <T> the input type.
  * @param <P> the input sender type.
- * @param <X> the task type.
- * @param <L> the listener type.
  */
-public abstract class CoreChatInput<T, P, X, L> implements ChatInput {
+@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
+public abstract class CoreChatInput<T, P> implements ChatInput {
 
   /**
    * the cancel.
@@ -92,12 +93,6 @@ public abstract class CoreChatInput<T, P, X, L> implements ChatInput {
   private final BiPredicate<Sender<P>, String> onInvalidInput;
 
   /**
-   * the plugin.
-   */
-  @NotNull
-  private final ChatInputPlugin<X, L> plugin;
-
-  /**
    * the repeat.
    */
   private final boolean repeat;
@@ -126,58 +121,17 @@ public abstract class CoreChatInput<T, P, X, L> implements ChatInput {
   @Nullable
   private Task expireTask;
 
-  /**
-   * ctor.
-   *
-   * @param plugin the plugin.
-   * @param sender the sender.
-   * @param invalidInputMessage the invalid input message.
-   * @param sendValueMessage the send value message.
-   * @param isValidInput the is valid input.
-   * @param setValue the set value.
-   * @param onFinish the on finish.
-   * @param onCancel the on cancel.
-   * @param onExpire the on expire.
-   * @param cancel the cancel.
-   * @param onInvalidInput the on invalid input.
-   * @param repeat the repeat.
-   * @param expire the expire.
-   */
-  protected CoreChatInput(@NotNull final ChatInputPlugin<X, L> plugin, @NotNull final Sender<P> sender,
-                          @Nullable final String invalidInputMessage, @Nullable final String sendValueMessage,
-                          @NotNull final BiPredicate<Sender<P>, String> isValidInput,
-                          @NotNull final BiFunction<Sender<P>, String, T> setValue,
-                          @NotNull final BiConsumer<Sender<P>, T> onFinish, @NotNull final Consumer<Sender<P>> onCancel,
-                          @NotNull final Consumer<Sender<P>> onExpire, @NotNull final String cancel,
-                          @NotNull final BiPredicate<Sender<P>, String> onInvalidInput, final boolean repeat,
-                          final long expire) {
-    this.plugin = plugin;
-    this.sender = sender;
-    this.invalidInputMessage = invalidInputMessage;
-    this.sendValueMessage = sendValueMessage;
-    this.isValidInput = isValidInput;
-    this.setValue = setValue;
-    this.onFinish = onFinish;
-    this.onCancel = onCancel;
-    this.onExpire = onExpire;
-    this.cancel = cancel;
-    this.onInvalidInput = onInvalidInput;
-    this.repeat = repeat;
-    this.expire = expire;
-  }
-
   @Override
   public final void start() {
-    this.plugin.registerEvent(this.getListener());
+    this.registerEvent();
     if (this.expire != -1L) {
-      this.expireTask = this.createTask(
-        this.plugin.createRunTaskLater(() ->
-          Optional.ofNullable(this.expireTask)
-            .filter(task -> !task.isCancelled())
-            .ifPresent(task -> {
-              this.onExpire.accept(this.sender);
-              this.unregister();
-            }), this.expire));
+      this.expireTask = this.createRunTaskLater(() ->
+        Optional.ofNullable(this.expireTask)
+          .filter(task -> !task.isCancelled())
+          .ifPresent(task -> {
+            this.onExpire.accept(this.sender);
+            this.unregister();
+          }), this.expire);
     }
     Optional.ofNullable(this.sendValueMessage)
       .ifPresent(this.sender::sendMessage);
@@ -230,21 +184,20 @@ public abstract class CoreChatInput<T, P, X, L> implements ChatInput {
   }
 
   /**
-   * creates a {@link Task} from the given object.
+   * creates an instance for the task.
    *
-   * @param object the object to create.
+   * @param runnable the runnable to run.
+   * @param time the time to expire.
    *
-   * @return a {@link Task} instance.
+   * @return an instance for the task.
    */
   @NotNull
-  protected abstract Task createTask(@NotNull X object);
+  protected abstract Task createRunTaskLater(@NotNull Runnable runnable, long time);
 
   /**
-   * obtains the listener to register.
-   *
-   * @return the listener to regsiter.
+   * registers the given listener.
    */
-  protected abstract L getListener();
+  protected abstract void registerEvent();
 
   /**
    * un register all listeners.
