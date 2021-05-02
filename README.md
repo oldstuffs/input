@@ -30,11 +30,14 @@ implementation("io.github.portlek:input-paper:${version}")
 ## Example usage
 
 ```java
-@RequiredArgsConstructor
 public final class TestCommand implements CommandExecutor {
 
   @NotNull
   private final Plugin plugin;
+
+  public TestCommand(@NotNull final Plugin plugin) {
+    this.plugin = plugin;
+  }
 
   @Override
   public boolean onCommand(@NotNull final CommandSender sender, @NotNull final Command command,
