@@ -26,12 +26,9 @@ package io.github.portlek.input.paper;
 
 import io.github.portlek.input.ChatInputBuilder;
 import io.github.portlek.input.CoreChatInput;
-import io.github.portlek.input.paper.impl.PprPlugin;
 import io.github.portlek.input.paper.impl.PprSender;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.scheduler.BukkitTask;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -39,7 +36,13 @@ import org.jetbrains.annotations.NotNull;
  *
  * @param <T> the {@link CoreChatInput} type.
  */
-public final class PaperChatInputBuilder<T> extends ChatInputBuilder<T, Player, BukkitTask, Listener> {
+public final class PaperChatInputBuilder<T> extends ChatInputBuilder<T, Player> {
+
+  /**
+   * the plugin.
+   */
+  @NotNull
+  private final Plugin plugin;
 
   /**
    * ctor.
@@ -48,7 +51,8 @@ public final class PaperChatInputBuilder<T> extends ChatInputBuilder<T, Player, 
    * @param player The player that will send the input
    */
   private PaperChatInputBuilder(@NotNull final Plugin plugin, @NotNull final Player player) {
-    super(new PprPlugin(plugin), new PprSender(player));
+    super(new PprSender(player));
+    this.plugin = plugin;
   }
 
   /**
@@ -68,7 +72,8 @@ public final class PaperChatInputBuilder<T> extends ChatInputBuilder<T, Player, 
   @NotNull
   @Override
   public PaperChatInput<T> build() {
-    return new PaperChatInput<>(this.plugin, this.sender, this.invalidInputMessage, this.sendValueMessage, this.isValidInput, this.setValue,
-      this.onFinish, this.onCancel, this.onExpire, this.cancel, this.onInvalidInput, this.repeat, this.expire);
+    return new PaperChatInput<>(this.plugin, this.sender, this.invalidInputMessage, this.sendValueMessage,
+      this.isValidInput, this.setValue, this.onFinish, this.onCancel, this.onExpire, this.cancel, this.onInvalidInput,
+      this.repeat, this.expire);
   }
 }

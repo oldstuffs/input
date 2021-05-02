@@ -24,7 +24,6 @@
 
 package io.github.portlek.input.bukkit;
 
-import io.github.portlek.input.ChatInputPlugin;
 import io.github.portlek.input.CoreChatInput;
 import io.github.portlek.input.Sender;
 import io.github.portlek.input.Task;
@@ -35,6 +34,7 @@ import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.BiPredicate;
 import java.util.function.Consumer;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -42,7 +42,7 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.scheduler.BukkitTask;
+import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -51,7 +51,13 @@ import org.jetbrains.annotations.Nullable;
  *
  * @param <T> the value type.
  */
-public final class BukkitChatInput<T> extends CoreChatInput<T, Player, BukkitTask, Listener> implements Listener {
+public final class BukkitChatInput<T> extends CoreChatInput<T, Player> implements Listener {
+
+  /**
+   * the plugin.
+   */
+  @NotNull
+  private final Plugin plugin;
 
   /**
    * ctor.
@@ -70,29 +76,28 @@ public final class BukkitChatInput<T> extends CoreChatInput<T, Player, BukkitTas
    * @param repeat the repeat.
    * @param expire the expire.
    */
-  BukkitChatInput(@NotNull final ChatInputPlugin<BukkitTask, Listener> plugin,
-                  @NotNull final Sender<Player> sender, @Nullable final String invalidInputMessage,
-                  @Nullable final String sendValueMessage,
+  BukkitChatInput(@NotNull final Plugin plugin, @NotNull final Sender<Player> sender,
+                  @Nullable final String invalidInputMessage, @Nullable final String sendValueMessage,
                   @NotNull final BiPredicate<Sender<Player>, String> isValidInput,
                   @NotNull final BiFunction<Sender<Player>, String, T> setValue,
                   @NotNull final BiConsumer<Sender<Player>, T> onFinish,
                   @NotNull final Consumer<Sender<Player>> onCancel, @NotNull final Consumer<Sender<Player>> onExpire,
-                  @NotNull final String cancel,
-                  @NotNull final BiPredicate<Sender<Player>, String> onInvalidInput, final boolean repeat,
-                  final long expire) {
-    super(plugin, sender, invalidInputMessage, sendValueMessage, isValidInput, setValue, onFinish, onCancel,
-      onExpire, cancel, onInvalidInput, repeat, expire);
+                  @NotNull final String cancel, @NotNull final BiPredicate<Sender<Player>, String> onInvalidInput,
+                  final boolean repeat, final long expire) {
+    super(cancel, expire, invalidInputMessage, isValidInput, onCancel, onExpire, onFinish, onInvalidInput, repeat,
+      sendValueMessage, sender, setValue);
+    this.plugin = plugin;
   }
 
   @NotNull
   @Override
-  public Task createTask(@NotNull final BukkitTask object) {
-    return new BkktTask(object);
+  public Task createRunTaskLater(@NotNull final Runnable runnable, final long time) {
+    return new BkktTask(Bukkit.getScheduler().runTaskLater(this.plugin, runnable, time));
   }
 
   @Override
-  protected Listener getListener() {
-    return this;
+  public void registerEvent() {
+    Bukkit.getPluginManager().registerEvents(this, this.plugin);
   }
 
   @Override
