@@ -27,7 +27,6 @@ package io.github.portlek.input.paper;
 
 import io.github.portlek.input.ChatInput;
 import io.github.portlek.input.ChatPlatform;
-import io.github.portlek.input.ChatSender;
 import io.github.portlek.input.ChatTask;
 import io.papermc.paper.event.player.AsyncChatEvent;
 import java.util.concurrent.atomic.AtomicReference;
