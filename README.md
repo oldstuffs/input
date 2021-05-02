@@ -22,35 +22,37 @@ implementation("io.github.portlek:input-bukkit:${version}")
 ## Example usage
 
 ```java
-final class TestCommand implements CommandExecutor {
+public final class TestCommand implements CommandExecutor {
 
   @NotNull
-  final Plugin plugin;
+  private final Plugin plugin;
 
-  TestCommand(@NotNull final Plugin plugin) {
+  public TestCommand(@NotNull final Plugin plugin) {
     this.plugin = plugin;
   }
 
   @Override
   public boolean onCommand(final CommandSender sender, final Command command, final String label, final String[] args) {
-    if (!(sender instanceof Player)) { // PlayerChatInput only works with players
+    // PlayerChatInput only works with players
+    if (!(sender instanceof Player)) {
       sender.sendMessage("Only for players");
       return false;
     }
-    // This comand will ask for a number n and will send to the player n! so we will
-    // work with integers
-    // BukkitChatInputBuilder.integer(..., ...).otherStuffs();
     BukkitChatInputBuilder.<Integer>builder(this.plugin, player)
-      .isValidInput((player, input) -> { // Set the validation
+      // Set the validation
+      .isValidInput((player, input) -> {
         try {
-          return Integer.parseInt(input) > 0; // We only accept numbers greater than 0
+          // We only accept numbers greater than 0
+          return Integer.parseInt(input) > 0;
         } catch (final Exception e) {
-          return false; // The input was not an integer
+          // The input was not an integer
+          return false;
         }
-      }).setValue((player, input) -> {
-      // We convert the input string to a number
-      return Integer.parseInt(input);
-    })
+      })
+      .setValue((player, input) -> {
+        // We convert the input string to a number
+        return Integer.parseInt(input);
+      })
       .onInvalidInput((player, input) -> {
         // Send a message if the input is invalid
         player.sendMessage("That is not a number");
@@ -58,21 +60,23 @@ final class TestCommand implements CommandExecutor {
         return true;
       })
       .onFinish((player, value) -> {
-        // when the player inputs a string that is a number greater that 0 we send a message
+        // When the player inputs a string that is a number greater that 0 we send a message
         player.sendMessage(value + "! is " + this.factorialOf(value));
       })
       .onCancel(player -> {
-        // if the player cancels, we send a message
+        // If the player cancels, we send a message
         player.sendMessage("Canceled the factorial-calculation");
       })
       .onExpire(player -> {
-        // if the input time expires.
+        // If the input time expires.
         player.sendMessage("Input expired!");
       })
       .expire(20L * 30L)
       .repeat(true)
-      .invalidInputMessage("That is not a number/Can calculate the factorial of it")// Message if the input is invalid
-      .sendValueMessage("Send a number to calculate") // Asking for the number
+      // Message if the input is invalid
+      .invalidInputMessage("That is not a number/Can calculate the factorial of it")
+      // Asking for the number
+      .sendValueMessage("Send a number to calculate")
       .toCancel("cancel")
       .build()
       .start();
