@@ -22,12 +22,12 @@
  * SOFTWARE.
  */
 
-package io.github.portlek.input.bukkit;
+package io.github.portlek.input.paper;
 
 import io.github.portlek.input.ChatInputBuilder;
 import io.github.portlek.input.CoreChatInput;
-import io.github.portlek.input.bukkit.impl.BkktPlugin;
-import io.github.portlek.input.bukkit.impl.BkktSender;
+import io.github.portlek.input.paper.impl.PprPlugin;
+import io.github.portlek.input.paper.impl.PprSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
@@ -39,7 +39,7 @@ import org.jetbrains.annotations.NotNull;
  *
  * @param <T> the {@link CoreChatInput} type.
  */
-public final class BukkitChatInputBuilder<T> extends ChatInputBuilder<T, Player, BukkitTask, Listener> {
+public final class PaperChatInputBuilder<T> extends ChatInputBuilder<T, Player, BukkitTask, Listener> {
 
   /**
    * ctor.
@@ -47,8 +47,8 @@ public final class BukkitChatInputBuilder<T> extends ChatInputBuilder<T, Player,
    * @param plugin The main class of the plugin
    * @param player The player that will send the input
    */
-  private BukkitChatInputBuilder(@NotNull final Plugin plugin, @NotNull final Player player) {
-    super(new BkktPlugin(plugin), new BkktSender(player));
+  private PaperChatInputBuilder(@NotNull final Plugin plugin, @NotNull final Player player) {
+    super(new PprPlugin(plugin), new PprSender(player));
   }
 
   /**
@@ -61,14 +61,14 @@ public final class BukkitChatInputBuilder<T> extends ChatInputBuilder<T, Player,
    * @return an instance of {@code this}.
    */
   @NotNull
-  public static <T> BukkitChatInputBuilder<T> builder(@NotNull final Plugin plugin, @NotNull final Player player) {
-    return new BukkitChatInputBuilder<>(plugin, player);
+  public static <T> PaperChatInputBuilder<T> builder(@NotNull final Plugin plugin, @NotNull final Player player) {
+    return new PaperChatInputBuilder<>(plugin, player);
   }
 
   @NotNull
   @Override
-  public BukkitChatInput<T> build() {
-    return new BukkitChatInput<>(this.plugin, this.sender, this.invalidInputMessage, this.sendValueMessage, this.isValidInput, this.setValue,
+  public PaperChatInput<T> build() {
+    return new PaperChatInput<>(this.plugin, this.sender, this.invalidInputMessage, this.sendValueMessage, this.isValidInput, this.setValue,
       this.onFinish, this.onCancel, this.onExpire, this.cancel, this.onInvalidInput, this.repeat, this.expire);
   }
 }

@@ -26,43 +26,32 @@ package io.github.portlek.input.bukkit.impl;
 
 import io.github.portlek.input.Sender;
 import java.util.UUID;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 /**
  * an implementation for {@link Sender}.
  */
+@RequiredArgsConstructor
 public final class BkktSender implements Sender<Player> {
 
   /**
    * the player.
    */
   @NotNull
-  private final Player player;
-
-  /**
-   * ctor.
-   *
-   * @param player the player.
-   */
-  public BkktSender(@NotNull final Player player) {
-    this.player = player;
-  }
+  @Getter
+  private final Player wrapped;
 
   @NotNull
   @Override
   public UUID getUniqueId() {
-    return this.player.getUniqueId();
+    return this.wrapped.getUniqueId();
   }
 
   @Override
   public void sendMessage(@NotNull final String message) {
-    this.player.sendMessage(message);
-  }
-
-  @NotNull
-  @Override
-  public Player getWrapped() {
-    return this.player;
+    this.wrapped.sendMessage(message);
   }
 }

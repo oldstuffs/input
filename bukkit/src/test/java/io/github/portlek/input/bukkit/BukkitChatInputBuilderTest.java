@@ -30,10 +30,10 @@ import org.junit.jupiter.api.Test;
 class BukkitChatInputBuilderTest {
 
   @Test
-  void builder() {
+  void build() {
   }
 
   @Test
-  void build() {
+  void builder() {
   }
 }

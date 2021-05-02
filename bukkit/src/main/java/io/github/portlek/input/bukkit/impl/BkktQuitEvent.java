@@ -26,6 +26,7 @@ package io.github.portlek.input.bukkit.impl;
 
 import io.github.portlek.input.Sender;
 import io.github.portlek.input.event.QuitEvent;
+import lombok.Getter;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.jetbrains.annotations.NotNull;
@@ -39,6 +40,7 @@ public final class BkktQuitEvent implements QuitEvent<Player> {
    * the sender.
    */
   @NotNull
+  @Getter
   private final Sender<Player> sender;
 
   /**
@@ -48,11 +50,5 @@ public final class BkktQuitEvent implements QuitEvent<Player> {
    */
   public BkktQuitEvent(@NotNull final PlayerQuitEvent event) {
     this.sender = new BkktSender(event.getPlayer());
-  }
-
-  @NotNull
-  @Override
-  public Sender<Player> getSender() {
-    return this.sender;
   }
 }

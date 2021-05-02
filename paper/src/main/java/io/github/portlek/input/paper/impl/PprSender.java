@@ -20,36 +20,38 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
- *
  */
 
-package io.github.portlek.input;
+package io.github.portlek.input.paper.impl;
 
-import org.junit.jupiter.api.Test;
+import io.github.portlek.input.Sender;
+import java.util.UUID;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
-class CoreChatInputTest {
+/**
+ * an implementation for {@link Sender}.
+ */
+@RequiredArgsConstructor
+public final class PprSender implements Sender<Player> {
 
-  @Test
-  void createTask() {
+  /**
+   * wrapped
+   */
+  @NotNull
+  @Getter
+  private final Player wrapped;
+
+  @NotNull
+  @Override
+  public UUID getUniqueId() {
+    return this.wrapped.getUniqueId();
   }
 
-  @Test
-  void getListener() {
-  }
-
-  @Test
-  void onChat() {
-  }
-
-  @Test
-  void onQuit() {
-  }
-
-  @Test
-  void start() {
-  }
-
-  @Test
-  void unregisterListeners() {
+  @Override
+  public void sendMessage(@NotNull final String message) {
+    this.wrapped.sendMessage(message);
   }
 }
