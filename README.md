@@ -30,6 +30,7 @@ implementation("io.github.portlek:input-paper:${version}")
 ## Example usage
 
 ```java
+
 @RequiredArgsConstructor
 public final class TestCommand implements CommandExecutor {
 
