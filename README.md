@@ -12,7 +12,7 @@
   <artifactId>input-bukkit</artifactId>
   <version>${version}</version>
 </dependency>
-  <!-- For Paper projects. -->
+<!-- For Paper projects. -->
 <dependency>
   <groupId>io.github.portlek</groupId>
   <artifactId>input-paper</artifactId>
