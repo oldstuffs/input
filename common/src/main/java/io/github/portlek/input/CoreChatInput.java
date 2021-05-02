@@ -184,6 +184,27 @@ public abstract class CoreChatInput<T, P> implements ChatInput {
   }
 
   /**
+   * creates an instance for the task.
+   *
+   * @param runnable the runnable to run.
+   * @param time the time to expire.
+   *
+   * @return an instance for the task.
+   */
+  @NotNull
+  protected abstract Task createRunTaskLater(@NotNull Runnable runnable, long time);
+
+  /**
+   * registers the given listener.
+   */
+  protected abstract void registerEvent();
+
+  /**
+   * un register all listeners.
+   */
+  protected abstract void unregisterListeners();
+
+  /**
    * unregisters the registered listeners and cancels all tasks.
    */
   private void unregister() {

@@ -24,36 +24,13 @@
 
 package io.github.portlek.input;
 
-import org.jetbrains.annotations.NotNull;
-
 /**
  * an interface to determine chat inputs.
  */
 public interface ChatInput {
 
   /**
-   * creates an instance for the task.
-   *
-   * @param runnable the runnable to run.
-   * @param time the time to expire.
-   *
-   * @return an instance for the task.
-   */
-  @NotNull
-  Task createRunTaskLater(@NotNull Runnable runnable, long time);
-
-  /**
-   * registers the given listener.
-   */
-  void registerEvent();
-
-  /**
    * when this method is called the input will be asked to the player.
    */
   void start();
-
-  /**
-   * un register all listeners.
-   */
-  void unregisterListeners();
 }

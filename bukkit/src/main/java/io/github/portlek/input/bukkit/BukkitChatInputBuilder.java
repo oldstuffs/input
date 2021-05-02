@@ -24,6 +24,7 @@
 
 package io.github.portlek.input.bukkit;
 
+import io.github.portlek.input.ChatInput;
 import io.github.portlek.input.ChatInputBuilder;
 import io.github.portlek.input.CoreChatInput;
 import io.github.portlek.input.bukkit.impl.BkktSender;
@@ -71,7 +72,7 @@ public final class BukkitChatInputBuilder<T> extends ChatInputBuilder<T, Player>
 
   @NotNull
   @Override
-  public BukkitChatInput<T> build() {
+  public ChatInput build() {
     return new BukkitChatInput<>(this.plugin, this.sender, this.invalidInputMessage, this.sendValueMessage,
       this.isValidInput, this.setValue, this.onFinish, this.onCancel, this.onExpire, this.cancel, this.onInvalidInput,
       this.repeat, this.expire);
