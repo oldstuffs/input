@@ -25,59 +25,35 @@
 
 package io.github.portlek.input;
 
-import org.junit.jupiter.api.Test;
+import org.jetbrains.annotations.NotNull;
 
-class ChatInputBuilderTest {
+/**
+ * an interface to determine chat platforms.
+ *
+ * @param <P> type of the sender.
+ */
+public interface ChatPlatform<P> {
 
-  @Test
-  void build() {
-  }
+  /**
+   * creates an instance for the task.
+   *
+   * @param runnable the runnable to run.
+   * @param time the time to expire.
+   *
+   * @return an instance for the task.
+   */
+  @NotNull
+  ChatTask createRunTaskLater(@NotNull Runnable runnable, long time);
 
-  @Test
-  void defaultValue() {
-  }
+  /**
+   * initiates the platform.
+   *
+   * @param input the input to initiate.
+   */
+  void init(@NotNull ChatInput<?, P> input);
 
-  @Test
-  void expire() {
-  }
-
-  @Test
-  void invalidInputMessage() {
-  }
-
-  @Test
-  void isValidInput() {
-  }
-
-  @Test
-  void onCancel() {
-  }
-
-  @Test
-  void onExpire() {
-  }
-
-  @Test
-  void onFinish() {
-  }
-
-  @Test
-  void onInvalidInput() {
-  }
-
-  @Test
-  void repeat() {
-  }
-
-  @Test
-  void sendValueMessage() {
-  }
-
-  @Test
-  void setValue() {
-  }
-
-  @Test
-  void toCancel() {
-  }
+  /**
+   * un register all listeners.
+   */
+  void unregisterListeners();
 }

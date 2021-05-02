@@ -23,21 +23,34 @@
  *
  */
 
-package io.github.portlek.input.bukkit.impl;
+package io.github.portlek.input;
 
-import org.junit.jupiter.api.Test;
-
-class BkktSenderTest {
-
-  @Test
-  void getUniqueId() {
-  }
-
-  @Test
-  void getWrapped() {
-  }
-
-  @Test
-  void sendMessage() {
-  }
+/**
+ * an enum class that contains en reason for chat input.
+ */
+public enum EndReason {
+  /**
+   * the player cancels.
+   */
+  PLAYER_CANCELS,
+  /**
+   * the finish.
+   */
+  FINISH,
+  /**
+   * the expire.
+   */
+  EXPIRE,
+  /**
+   * the player disconnects.
+   */
+  PLAYER_DISCONNECTS,
+  /**
+   * the invalid input.
+   */
+  INVALID_INPUT,
+  /**
+   * the custom.
+   */
+  CUSTOM
 }

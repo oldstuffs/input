@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2021 MrNemo64
+ * Copyright (c) 2021 Hasan Demirtaş
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -15,40 +15,37 @@
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NON INFRINGEMENT. IN NO EVENT SHALL THE
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
 
-package io.github.portlek.input.paper.impl;
+package io.github.portlek.input;
 
-import io.github.portlek.input.Sender;
-import io.github.portlek.input.event.QuitEvent;
-import lombok.Getter;
-import org.bukkit.entity.Player;
-import org.bukkit.event.player.PlayerQuitEvent;
+import java.util.UUID;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * an implementation for {@link QuitEvent}.
+ * an interface to determine the input's sender.
+ *
+ * @param <T> the abstract type of the sender.
  */
-public final class PprQuitEvent implements QuitEvent<Player> {
+public interface ChatSender<T> extends ChatWrap<T> {
 
   /**
-   * the sender.
+   * obtains sender's unique id.
+   *
+   * @return the unique id of the sender.
    */
   @NotNull
-  @Getter
-  private final Sender<Player> sender;
+  UUID getUniqueId();
 
   /**
-   * ctor.
+   * sends the given message to the input's sender.
    *
-   * @param event the event.
+   * @param message the message to send.
    */
-  public PprQuitEvent(@NotNull final PlayerQuitEvent event) {
-    this.sender = new PprSender(event.getPlayer());
-  }
+  void sendMessage(@NotNull String message);
 }

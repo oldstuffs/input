@@ -20,32 +20,40 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
+ *
  */
 
-package io.github.portlek.input;
+package io.github.portlek.input.bukkit;
 
+import io.github.portlek.input.ChatSender;
 import java.util.UUID;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * an interface to determine the input's sender.
- *
- * @param <T> the abstract type of the sender.
+ * an implementation for {@link ChatSender}.
  */
-public interface Sender<T> extends Wrap<T> {
+@RequiredArgsConstructor(access = AccessLevel.PACKAGE)
+final class BkktChatSender implements ChatSender<Player> {
 
   /**
-   * obtains sender's unique id.
-   *
-   * @return the unique id of the sender.
+   * the wrapped.
    */
   @NotNull
-  UUID getUniqueId();
+  @Getter
+  private final Player wrapped;
 
-  /**
-   * sends the given message to the input's sender.
-   *
-   * @param message the message to send.
-   */
-  void sendMessage(@NotNull String message);
+  @NotNull
+  @Override
+  public UUID getUniqueId() {
+    return this.wrapped.getUniqueId();
+  }
+
+  @Override
+  public void sendMessage(@NotNull final String message) {
+    this.wrapped.sendMessage(message);
+  }
 }

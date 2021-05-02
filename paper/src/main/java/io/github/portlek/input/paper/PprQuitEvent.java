@@ -22,7 +22,28 @@
  * SOFTWARE.
  *
  */
+
+package io.github.portlek.input.paper;
+
+import io.github.portlek.input.ChatSender;
+import io.github.portlek.input.event.QuitEvent;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerQuitEvent;
+import org.jetbrains.annotations.NotNull;
+
 /**
- * the package that contains implementation for the common abstraction.
+ * an implementation for {@link QuitEvent}.
  */
-package io.github.portlek.input.paper.impl;
+@RequiredArgsConstructor(access = AccessLevel.PACKAGE)
+final class PprQuitEvent implements QuitEvent<Player> {
+
+  /**
+   * the sender.
+   */
+  @NotNull
+  @Getter
+  private final ChatSender<Player> sender;
+}

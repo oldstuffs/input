@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2021 MrNemo64
+ * Copyright (c) 2021 Hasan Demirtaş
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -15,58 +15,29 @@
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NON INFRINGEMENT. IN NO EVENT SHALL THE
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
 
-package io.github.portlek.input.bukkit.impl;
+package io.github.portlek.input;
 
-import io.github.portlek.input.Sender;
-import io.github.portlek.input.event.ChatEvent;
-import lombok.Getter;
-import org.bukkit.entity.Player;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * an implementation for {@link ChatEvent}.
+ * a class that wraps an abstract object to get the real object.
+ *
+ * @param <T> the wrapped object type.
  */
-public final class BkktChatEvent implements ChatEvent<Player> {
+public interface ChatWrap<T> {
 
   /**
-   * the event.
-   */
-  @NotNull
-  private final AsyncPlayerChatEvent event;
-
-  /**
-   * the sender.
-   */
-  @NotNull
-  @Getter
-  private final Sender<Player> sender;
-
-  /**
-   * ctor.
+   * obtains the wrapped object.
    *
-   * @param event the event.
+   * @return wrapped object.
    */
-  public BkktChatEvent(@NotNull final AsyncPlayerChatEvent event) {
-    this.event = event;
-    this.sender = new BkktSender(this.event.getPlayer());
-  }
-
-  @Override
-  public void cancel() {
-    this.event.setCancelled(true);
-  }
-
   @NotNull
-  @Override
-  public String getMessage() {
-    return this.event.getMessage();
-  }
+  T getWrapped();
 }

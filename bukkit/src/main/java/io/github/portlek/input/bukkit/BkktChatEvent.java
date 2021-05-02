@@ -23,17 +23,44 @@
  *
  */
 
-package io.github.portlek.input.bukkit.impl;
+package io.github.portlek.input.bukkit;
 
-import org.junit.jupiter.api.Test;
+import io.github.portlek.input.ChatSender;
+import io.github.portlek.input.event.ChatEvent;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import org.bukkit.entity.Player;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.jetbrains.annotations.NotNull;
 
-class BkktTaskTest {
+/**
+ * an implementation for {@link ChatEvent}.
+ */
+@RequiredArgsConstructor(access = AccessLevel.PACKAGE)
+final class BkktChatEvent implements ChatEvent<Player> {
 
-  @Test
-  void cancel() {
+  /**
+   * the event.
+   */
+  @NotNull
+  private final AsyncPlayerChatEvent event;
+
+  /**
+   * the sender.
+   */
+  @NotNull
+  @Getter
+  private final ChatSender<Player> sender;
+
+  @Override
+  public void cancel() {
+    this.event.setCancelled(true);
   }
 
-  @Test
-  void isCancelled() {
+  @NotNull
+  @Override
+  public String getMessage() {
+    return this.event.getMessage();
   }
 }

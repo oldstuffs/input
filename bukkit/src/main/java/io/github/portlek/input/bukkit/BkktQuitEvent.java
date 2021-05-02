@@ -20,24 +20,29 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
+ *
  */
 
-package io.github.portlek.input;
+package io.github.portlek.input.bukkit;
 
+import io.github.portlek.input.ChatSender;
+import io.github.portlek.input.event.QuitEvent;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * a class that wraps an abstract object to get the real object.
- *
- * @param <T> the wrapped object type.
+ * an implementation for {@link QuitEvent}.
  */
-public interface Wrap<T> {
+@RequiredArgsConstructor(access = AccessLevel.PACKAGE)
+final class BkktQuitEvent implements QuitEvent<Player> {
 
   /**
-   * obtains the wrapped object.
-   *
-   * @return wrapped object.
+   * the sender.
    */
   @NotNull
-  T getWrapped();
+  @Getter
+  private final ChatSender<Player> sender;
 }

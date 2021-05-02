@@ -23,7 +23,6 @@
  *
  */
 /**
- * the package that contains {@link io.github.portlek.input.ChatInput} and
- * {@link io.github.portlek.input.ChatInputBuilder} implementations.
+ * the package that contains implementation of PaperMc.
  */
 package io.github.portlek.input.paper;

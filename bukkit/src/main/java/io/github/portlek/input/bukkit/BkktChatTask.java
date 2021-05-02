@@ -25,15 +25,31 @@
 
 package io.github.portlek.input.bukkit;
 
-import org.junit.jupiter.api.Test;
+import io.github.portlek.input.ChatTask;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import org.bukkit.scheduler.BukkitTask;
+import org.jetbrains.annotations.NotNull;
 
-class BukkitChatInputBuilderTest {
+/**
+ * an implementation for {@link ChatTask}.
+ */
+@RequiredArgsConstructor(access = AccessLevel.PACKAGE)
+final class BkktChatTask implements ChatTask {
 
-  @Test
-  void build() {
+  /**
+   * the task.
+   */
+  @NotNull
+  private final BukkitTask task;
+
+  @Override
+  public void cancel() {
+    this.task.cancel();
   }
 
-  @Test
-  void builder() {
+  @Override
+  public boolean isCancelled() {
+    return this.task.isCancelled();
   }
 }
