@@ -25,12 +25,14 @@
 package io.github.portlek.input.bukkit.impl;
 
 import io.github.portlek.input.Task;
+import lombok.RequiredArgsConstructor;
 import org.bukkit.scheduler.BukkitTask;
 import org.jetbrains.annotations.NotNull;
 
 /**
  * an implementation for {@link Task}.
  */
+@RequiredArgsConstructor
 public final class BkktTask implements Task {
 
   /**
@@ -38,15 +40,6 @@ public final class BkktTask implements Task {
    */
   @NotNull
   private final BukkitTask task;
-
-  /**
-   * ctor.
-   *
-   * @param task the task.
-   */
-  public BkktTask(@NotNull final BukkitTask task) {
-    this.task = task;
-  }
 
   @Override
   public void cancel() {

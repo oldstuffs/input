@@ -22,34 +22,8 @@
  * SOFTWARE.
  *
  */
-
-package io.github.portlek.input;
-
-import org.junit.jupiter.api.Test;
-
-class CoreChatInputTest {
-
-  @Test
-  void createTask() {
-  }
-
-  @Test
-  void getListener() {
-  }
-
-  @Test
-  void onChat() {
-  }
-
-  @Test
-  void onQuit() {
-  }
-
-  @Test
-  void start() {
-  }
-
-  @Test
-  void unregisterListeners() {
-  }
-}
+/**
+ * the package that contains {@link io.github.portlek.input.ChatInput} and
+ * {@link io.github.portlek.input.ChatInputBuilder} implementations.
+ */
+package io.github.portlek.input.paper;

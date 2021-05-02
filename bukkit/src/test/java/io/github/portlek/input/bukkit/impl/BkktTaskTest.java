@@ -30,10 +30,10 @@ import org.junit.jupiter.api.Test;
 class BkktTaskTest {
 
   @Test
-  void isCancelled() {
+  void cancel() {
   }
 
   @Test
-  void cancel() {
+  void isCancelled() {
   }
 }

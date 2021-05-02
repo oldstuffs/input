@@ -30,6 +30,14 @@ import org.junit.jupiter.api.Test;
 class ChatInputBuilderTest {
 
   @Test
+  void build() {
+  }
+
+  @Test
+  void defaultValue() {
+  }
+
+  @Test
   void expire() {
   }
 
@@ -38,35 +46,7 @@ class ChatInputBuilderTest {
   }
 
   @Test
-  void sendValueMessage() {
-  }
-
-  @Test
-  void toCancel() {
-  }
-
-  @Test
-  void defaultValue() {
-  }
-
-  @Test
-  void repeat() {
-  }
-
-  @Test
-  void onExpire() {
-  }
-
-  @Test
-  void onInvalidInput() {
-  }
-
-  @Test
   void isValidInput() {
-  }
-
-  @Test
-  void onFinish() {
   }
 
   @Test
@@ -74,10 +54,30 @@ class ChatInputBuilderTest {
   }
 
   @Test
+  void onExpire() {
+  }
+
+  @Test
+  void onFinish() {
+  }
+
+  @Test
+  void onInvalidInput() {
+  }
+
+  @Test
+  void repeat() {
+  }
+
+  @Test
+  void sendValueMessage() {
+  }
+
+  @Test
   void setValue() {
   }
 
   @Test
-  void build() {
+  void toCancel() {
   }
 }

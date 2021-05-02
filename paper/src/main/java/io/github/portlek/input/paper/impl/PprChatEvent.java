@@ -22,25 +22,26 @@
  * SOFTWARE.
  */
 
-package io.github.portlek.input.bukkit.impl;
+package io.github.portlek.input.paper.impl;
 
 import io.github.portlek.input.Sender;
 import io.github.portlek.input.event.ChatEvent;
+import io.papermc.paper.event.player.AsyncChatEvent;
 import lombok.Getter;
+import net.kyori.adventure.text.TextComponent;
 import org.bukkit.entity.Player;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.jetbrains.annotations.NotNull;
 
 /**
  * an implementation for {@link ChatEvent}.
  */
-public final class BkktChatEvent implements ChatEvent<Player> {
+public final class PprChatEvent implements ChatEvent<Player> {
 
   /**
    * the event.
    */
   @NotNull
-  private final AsyncPlayerChatEvent event;
+  private final AsyncChatEvent event;
 
   /**
    * the sender.
@@ -54,9 +55,9 @@ public final class BkktChatEvent implements ChatEvent<Player> {
    *
    * @param event the event.
    */
-  public BkktChatEvent(@NotNull final AsyncPlayerChatEvent event) {
+  public PprChatEvent(@NotNull final AsyncChatEvent event) {
     this.event = event;
-    this.sender = new BkktSender(this.event.getPlayer());
+    this.sender = new PprSender(this.event.getPlayer());
   }
 
   @Override
@@ -67,6 +68,6 @@ public final class BkktChatEvent implements ChatEvent<Player> {
   @NotNull
   @Override
   public String getMessage() {
-    return this.event.getMessage();
+    return ((TextComponent) this.event.message()).content();
   }
 }

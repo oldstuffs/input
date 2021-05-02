@@ -30,10 +30,10 @@ import org.junit.jupiter.api.Test;
 class BkktPluginTest {
 
   @Test
-  void registerEvent() {
+  void createRunTaskLater() {
   }
 
   @Test
-  void createRunTaskLater() {
+  void registerEvent() {
   }
 }

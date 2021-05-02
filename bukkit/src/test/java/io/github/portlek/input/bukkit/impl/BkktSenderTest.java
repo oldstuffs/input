@@ -34,10 +34,10 @@ class BkktSenderTest {
   }
 
   @Test
-  void sendMessage() {
+  void getWrapped() {
   }
 
   @Test
-  void getWrapped() {
+  void sendMessage() {
   }
 }

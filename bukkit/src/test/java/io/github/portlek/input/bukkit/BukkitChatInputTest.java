@@ -30,11 +30,11 @@ import org.junit.jupiter.api.Test;
 class BukkitChatInputTest {
 
   @Test
-  void whenQuit() {
+  void createTask() {
   }
 
   @Test
-  void whenChat() {
+  void getListener() {
   }
 
   @Test
@@ -42,10 +42,10 @@ class BukkitChatInputTest {
   }
 
   @Test
-  void createTask() {
+  void whenChat() {
   }
 
   @Test
-  void getListener() {
+  void whenQuit() {
   }
 }

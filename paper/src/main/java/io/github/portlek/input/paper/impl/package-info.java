@@ -22,34 +22,7 @@
  * SOFTWARE.
  *
  */
-
-package io.github.portlek.input;
-
-import org.junit.jupiter.api.Test;
-
-class CoreChatInputTest {
-
-  @Test
-  void createTask() {
-  }
-
-  @Test
-  void getListener() {
-  }
-
-  @Test
-  void onChat() {
-  }
-
-  @Test
-  void onQuit() {
-  }
-
-  @Test
-  void start() {
-  }
-
-  @Test
-  void unregisterListeners() {
-  }
-}
+/**
+ * the package that contains implementation for the common abstraction.
+ */
+package io.github.portlek.input.paper.impl;
