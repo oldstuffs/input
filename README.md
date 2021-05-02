@@ -36,9 +36,6 @@ public final class TestCommand implements CommandExecutor {
   @NotNull
   private final Plugin plugin;
 
-  @NotNull
-  private final PaperChatPlatform platform = new PaperChatPlatform(this.plugin);
-
   @Override
   public boolean onCommand(@NotNull final CommandSender sender, @NotNull final Command command,
                            @NotNull final String label, @NotNull final String[] args) {
@@ -47,7 +44,7 @@ public final class TestCommand implements CommandExecutor {
       sender.sendMessage("Only for players");
       return false;
     }
-    PaperChatPlatform.<Integer>builder(this.platform, (Player) sender)
+    PaperChatPlatform.<Integer>builder((Player) sender)
       // Set the validation
       .isValidInput((player, input) -> {
         try {

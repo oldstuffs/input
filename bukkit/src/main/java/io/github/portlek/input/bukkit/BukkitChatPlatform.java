@@ -25,8 +25,10 @@
 
 package io.github.portlek.input.bukkit;
 
+import com.google.common.base.Preconditions;
 import io.github.portlek.input.ChatInput;
 import io.github.portlek.input.ChatPlatform;
+import io.github.portlek.input.ChatSender;
 import io.github.portlek.input.ChatTask;
 import java.util.concurrent.atomic.AtomicReference;
 import lombok.RequiredArgsConstructor;
@@ -62,6 +64,38 @@ public final class BukkitChatPlatform implements ChatPlatform<Player>, Listener 
   /**
    * creates a new builder instance.
    *
+   * @param sender the sender to create.
+   * @param <T> type of the value.
+   *
+   * @return a newly created builder instance.
+   *
+   * @throws IllegalArgumentException if the server has not any plugin.
+   */
+  @NotNull
+  public static <T> ChatInput.Builder<T, Player> builder(@NotNull final Player sender) {
+    final Plugin[] plugins = Bukkit.getPluginManager().getPlugins();
+    Preconditions.checkArgument(plugins.length != 0, "not found any plugin");
+    return BukkitChatPlatform.builder(plugins[0], sender);
+  }
+
+  /**
+   * creates a new builder instance.
+   *
+   * @param plugin the plugin to create.
+   * @param sender the sender to create.
+   * @param <T> type of the value.
+   *
+   * @return a newly created builder instance.
+   */
+  @NotNull
+  public static <T> ChatInput.Builder<T, Player> builder(@NotNull final Plugin plugin,
+                                                         @NotNull final Player sender) {
+    return BukkitChatPlatform.builder(new BukkitChatPlatform(plugin), sender);
+  }
+
+  /**
+   * creates a new builder instance.
+   *
    * @param platform the platform to create.
    * @param sender the sender to create.
    * @param <T> type of the value.
@@ -69,9 +103,24 @@ public final class BukkitChatPlatform implements ChatPlatform<Player>, Listener 
    * @return a newly created builder instance.
    */
   @NotNull
-  public static <T> ChatInput.Builder<T, Player> builder(@NotNull final BukkitChatPlatform platform,
+  public static <T> ChatInput.Builder<T, Player> builder(@NotNull final ChatPlatform<Player> platform,
                                                          @NotNull final Player sender) {
-    return ChatInput.builder(platform, new BkktChatSender(sender));
+    return BukkitChatPlatform.builder(platform, new BkktChatSender(sender));
+  }
+
+  /**
+   * creates a new builder instance.
+   *
+   * @param platform the platform to create.
+   * @param sender the sender to create.
+   * @param <T> type of the value.
+   *
+   * @return a newly created builder instance.
+   */
+  @NotNull
+  public static <T> ChatInput.Builder<T, Player> builder(@NotNull final ChatPlatform<Player> platform,
+                                                         @NotNull final ChatSender<Player> sender) {
+    return ChatInput.builder(platform, sender);
   }
 
   @NotNull
