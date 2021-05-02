@@ -14,9 +14,9 @@
 </dependency>
   <!-- For Paper projects. -->
 <dependency>
-<groupId>io.github.portlek</groupId>
-<artifactId>input-paper</artifactId>
-<version>${version}</version>
+  <groupId>io.github.portlek</groupId>
+  <artifactId>input-paper</artifactId>
+  <version>${version}</version>
 </dependency>
 ```
 
