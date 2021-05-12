@@ -1,23 +1,25 @@
 [![idea](https://www.elegantobjects.org/intellij-idea.svg)](https://www.jetbrains.com/idea/)
 
 ![master](https://github.com/portlek/input/workflows/build/badge.svg)
-![Maven Central](https://img.shields.io/maven-central/v/io.github.portlek/input-common?label=version)
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.portlek/input?label=version)](https://repo1.maven.org/maven2/io/github/portlek/input/)
 
 ## How to Use
 
 ```xml
-<!-- For Bukkit projects. -->
-<dependency>
-  <groupId>io.github.portlek</groupId>
-  <artifactId>input-bukkit</artifactId>
-  <version>${version}</version>
-</dependency>
-<!-- For Paper projects. -->
-<dependency>
-  <groupId>io.github.portlek</groupId>
-  <artifactId>input-paper</artifactId>
-  <version>${version}</version>
-</dependency>
+<dependencies>
+  <!-- For Bukkit projects. -->
+  <dependency>
+    <groupId>io.github.portlek</groupId>
+    <artifactId>input-bukkit</artifactId>
+    <version>${version}</version>
+  </dependency>
+  <!-- For Paper projects. -->
+  <dependency>
+    <groupId>io.github.portlek</groupId>
+    <artifactId>input-paper</artifactId>
+    <version>${version}</version>
+  </dependency>
+</dependencies>
 ```
 
 ```groovy
