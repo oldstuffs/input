@@ -1,7 +1,7 @@
 [![idea](https://www.elegantobjects.org/intellij-idea.svg)](https://www.jetbrains.com/idea/)
 
 ![master](https://github.com/portlek/input/workflows/build/badge.svg)
-[![Maven Central](https://img.shields.io/maven-central/v/io.github.portlek/input?label=version)](https://repo1.maven.org/maven2/io/github/portlek/input/)
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.portlek/input-parent?label=version)](https://repo1.maven.org/maven2/io/github/portlek/input-parent/)
 
 ## How to Use
 
