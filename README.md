@@ -51,8 +51,13 @@
 ```xml
 <dependencies>
   <dependency>
-    <groupId>com.github.portlek</groupId>
-    <artifactId>input</artifactId>
+    <groupId>com.github.portlek.input</groupId>
+    <artifactId>input-bukkit</artifactId>
+    <version>${version}</version>
+  </dependency>
+  <dependency>
+    <groupId>com.github.portlek.input</groupId>
+    <artifactId>input-paper</artifactId>
     <version>${version}</version>
   </dependency>
 </dependencies>
@@ -76,6 +81,7 @@ repositories {
 
 ```groovy
 dependencies {
-  implementation("com.github.portlek:bukkit-location:${version}")
+  implementation("com.github.portlek.input:input-bukkit:${version}")
+  implementation("com.github.portlek.input:input-paper:${version}")
 }
 ```
