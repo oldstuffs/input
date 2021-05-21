@@ -26,7 +26,7 @@
             <!-- Relocations(Optional)
             <relocations>
               <relocation>
-                <pattern>com.github.portlek.input</pattern>
+                <pattern>io.github.portlek.input</pattern>
                 <shadedPattern>[YOUR_PLUGIN_PACKAGE].shade</shadedPattern>
               </relocation>
             </relocations>
